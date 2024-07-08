@@ -1,12 +1,14 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.Entities;
 
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvBindByPosition;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.UUID;
 
@@ -14,14 +16,15 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Provincia {
     @Id
     @GeneratedValue
     UUID id;
-    @CsvBindByName(column = "Sigla")
+    @CsvBindByPosition(position = 0)
     private String sigla;
-    @CsvBindByName(column = "Provincia")
+    @CsvBindByPosition(position = 1)
     private String provincia;
-    @CsvBindByName(column = "Regione")
+    @CsvBindByPosition(position = 2)
     private String regione;
 }
