@@ -10,17 +10,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table
-public class Indirizzo {
+
+public class RuoloStatoFattura {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String via;
-    private int civico;
-    private int cap;
-
-    @OneToOne
-    private Provincia provincia;
-    @OneToOne
-    private  Comune comune;
+    private String nome;
 }

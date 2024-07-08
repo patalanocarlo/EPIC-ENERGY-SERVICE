@@ -1,26 +1,20 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.Entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+
 @Getter
 @Setter
 @NoArgsConstructor
-@Table
-public class Indirizzo {
+@Entity
+public class Utente_Ruolo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String via;
-    private int civico;
-    private int cap;
-
-    @OneToOne
-    private Provincia provincia;
-    @OneToOne
-    private  Comune comune;
+    @ManyToOne
+    private Utente utente;
 }
