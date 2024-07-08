@@ -25,6 +25,7 @@ public class ComuneService {
         try (Reader reader = new FileReader("comuni-italiani.csv")) {
             List<Comune> comuni = new CsvToBeanBuilder<Comune>(reader)
                     .withType(Comune.class)
+                    .withSeparator(';')
                     .build()
                     .parse();
            comuni.forEach(el-> System.out.println(el));
