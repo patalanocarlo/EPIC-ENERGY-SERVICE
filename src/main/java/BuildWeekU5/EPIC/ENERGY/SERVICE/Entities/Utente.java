@@ -23,6 +23,6 @@ public class Utente {
     private String cognome;
     private String avatar;
 
-   @OneToMany
+   @ManyToOne
     private Utente_Ruolo utenteRuolo;
 }
