@@ -15,6 +15,8 @@ public class Utente_Ruolo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String ruolo;
     @ManyToOne
     private Utente utente;
 }
