@@ -2,7 +2,7 @@ package BuildWeekU5.EPIC.ENERGY.SERVICE.payloads;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+
 import jakarta.validation.constraints.Size;
 
 public record UtentePayload(
@@ -27,8 +27,6 @@ public record UtentePayload(
         String cognome,
 
         @NotEmpty(message = "Il campo Avatar è obbligatorio!")
-        String avatar,
+        String avatar
 
-        @NotNull(message = "Il campo Ruolo è non può essere vuoto!")
-        Long utenteRuoloId
 ) {}
