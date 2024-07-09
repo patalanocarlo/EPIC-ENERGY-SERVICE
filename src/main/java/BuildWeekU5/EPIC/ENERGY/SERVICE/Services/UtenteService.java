@@ -1,11 +1,14 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.Services;
 
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Cliente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente_Ruolo;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.UtenteRepository;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.Utente_RuoloRepository;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.NotFoundException;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.UtentePayload;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -28,6 +32,9 @@ public class UtenteService {
 
     @Autowired
     private Utente_RuoloRepository utente_ruoloRepository;
+
+    @Autowired
+    private Cloudinary cloudinaryUploader;
 
     public Utente save(UtentePayload body) throws IOException {
         Utente utente = new Utente();
@@ -62,5 +69,12 @@ public class UtenteService {
         if (pageSize > 50) pageSize = 50;
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         return utenteRepository.findAll(pageable);
+    }
+
+    public Utente uploadAvatar(Long id, MultipartFile file) throws IOException {
+        Utente found = this.findById(id);
+        String avatarURL = (String) cloudinaryUploader.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
+        found.setAvatar(avatarURL);
+        return utenteRepository.save(found);
     }
 }

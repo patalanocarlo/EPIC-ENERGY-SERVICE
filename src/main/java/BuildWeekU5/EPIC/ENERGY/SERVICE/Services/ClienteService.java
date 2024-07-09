@@ -8,8 +8,11 @@ import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.FattureRepository;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.NotFoundException;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.ClientePayload;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.FatturePayload;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -18,6 +21,9 @@ import java.time.LocalDate;
 public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private Cloudinary cloudinaryUploader;
 
     public Cliente save(ClientePayload body) throws IOException {
         Cliente cliente = new Cliente();
@@ -41,5 +47,12 @@ public class ClienteService {
     public void findByIdAndDelete(Long id) {
         Cliente found = this.findById(id);
         clienteRepository.delete(found);
+    }
+
+    public Cliente uploadAvatar(Long id, MultipartFile file) throws IOException {
+        Cliente found = this.findById(id);
+        String avatarURL = (String) cloudinaryUploader.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
+        found.setLogoAziendale(avatarURL);
+        return clienteRepository.save(found);
     }
 }
