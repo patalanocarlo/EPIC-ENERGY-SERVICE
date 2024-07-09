@@ -33,4 +33,14 @@ public class UtenteService {
         Utente found = this.findById(id);
         utenteRepository.delete(found);
     }
+
+    public Utente findByEmail(String email) {
+        return utenteRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Utente con email " + email + " non trovato!!"));
+    }
+
+    public Page<Utente> getAllUtenti(int pageNumber, int pageSize, String sortBy) {
+        if (pageSize > 50) pageSize = 50;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        return utenteRepository.findAll(pageable);
+    }
 }
