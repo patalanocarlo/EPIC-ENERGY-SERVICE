@@ -8,6 +8,10 @@ import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.NotFoundException;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.FatturePayload;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.UtentePayload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -33,5 +37,10 @@ public class FattureService {
     public void findByIdAndDelete(Long id) {
         Fatture found = this.findById(id);
         fattureRepository.delete(found);
+    }
+    public Page<Fatture> getAllFatture(int pageNumber, int pageSize, String sortBy) {
+        if (pageSize > 50) pageSize = 50;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+        return fattureRepository.findAll(pageable);
     }
 }
