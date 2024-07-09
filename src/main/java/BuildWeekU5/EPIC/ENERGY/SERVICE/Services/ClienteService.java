@@ -27,7 +27,7 @@ public class ClienteService {
         cliente.setTelefono(body.telefono());
         cliente.setEmailContatto(body.emailContatto());
         cliente.setCognomeContatto(body.cognomeContatto());
-      //  cliente.setNomeContatto(body.nomeContatto());
+       cliente.setNomeContatto(body.nomeContatto());
         cliente.setTelefonoContatto(body.telefonoContatto());
         cliente.setDataInserimento(LocalDate.now());
         cliente.setLogoAziendale("http://logoprova.it");

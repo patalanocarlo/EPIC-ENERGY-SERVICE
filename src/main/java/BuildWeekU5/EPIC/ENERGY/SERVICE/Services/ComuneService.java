@@ -30,7 +30,7 @@ public class ComuneService {
                     .build()
                     .parse();
 
-comuni.forEach(el-> System.out.println(el));
+
             comuneRepository.saveAll(comuni);
         } catch (Exception e) {
             e.printStackTrace();

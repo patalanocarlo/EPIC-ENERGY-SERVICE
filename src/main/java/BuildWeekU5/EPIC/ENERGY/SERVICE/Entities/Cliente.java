@@ -29,6 +29,7 @@ public class Cliente {
     private String pec;
     private int telefono;
     private String emailContatto;
+    private String nomeContatto;
     private String CognomeContatto;
     private int TelefonoContatto;
     private String LogoAziendale;

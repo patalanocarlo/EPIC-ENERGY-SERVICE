@@ -17,7 +17,7 @@ public class Fatture {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate DataFattura;
-    private int Importo;
+    private double Importo;
     private int NumeroFattura = 0;
     @ManyToOne
     private RuoloStatoFattura ruoloStatoFattura;
@@ -27,7 +27,7 @@ public class Fatture {
 
 
 
-    public Fatture(Cliente cliente, int importo, RuoloStatoFattura ruoloStatoFattura, LocalDate dataFattura) {
+    public Fatture(Cliente cliente,double importo, RuoloStatoFattura ruoloStatoFattura, LocalDate dataFattura) {
         this.cliente = cliente;
         Importo = importo;
         this.ruoloStatoFattura = ruoloStatoFattura;
