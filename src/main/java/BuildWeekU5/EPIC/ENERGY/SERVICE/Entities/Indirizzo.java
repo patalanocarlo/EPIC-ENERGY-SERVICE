@@ -19,8 +19,7 @@ public class Indirizzo {
     private int civico;
     private int cap;
 
-    @OneToOne
-    private Provincia provincia;
+
     @OneToOne
     private  Comune comune;
 }
