@@ -23,9 +23,9 @@ public class ClienteController {
     public Cliente createCliente(@RequestBody ClientePayload clientePayload) throws IOException {
     return clienteService.save(clientePayload);
 }
-@GetMapping("/clienteId")
-    public Cliente findyById(@PathVariable Long clienteid){
-    return clienteService.findById(clienteid);
+@GetMapping("/{clienteId}")
+    public Cliente findyById(@PathVariable Long clienteId){
+    return clienteService.findById(clienteId);
 }
 
     @PostMapping("/{clienteId}/avatar")
