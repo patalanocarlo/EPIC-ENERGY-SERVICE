@@ -12,7 +12,7 @@ import java.util.Date;
 @Component
 public class JWTTools {///3
 
-    @Value("${jwt.secret}")
+    @Value("${jwt_secret}")
     private String secret;
 
     public String createToken(Utente utente) {
