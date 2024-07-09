@@ -1,5 +1,7 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.payloads;
 
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Indirizzo;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
@@ -42,8 +44,14 @@ public record ClientePayload(
         @Email(message = "Formato email contatto non valido")
         String emailContatto,
 
+        @Nullable
+        String sedeOperativa,
+
+        @Nullable
+        String sedeLegale,
+
         @NotNull(message = "Il campo Telefono Contatto è obbligatorio")
-        @Max(value = 10, message = "Il campo Telefono Contatto deve avere massimo 10 numeri.")
+        @Max(value = 20, message = "Il campo Telefono Contatto deve avere massimo 20 numeri.")
         Integer telefonoContatto
 
 ) {

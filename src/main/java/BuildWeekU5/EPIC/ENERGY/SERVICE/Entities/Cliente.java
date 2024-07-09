@@ -1,6 +1,7 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.Entities;
 
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 import lombok.Getter;
@@ -37,7 +38,9 @@ public class Cliente {
     @OneToMany
     private List<Fatture> fattures;
     @OneToOne
+    @Nullable
 private Indirizzo sedeLegale;
     @OneToOne
+    @Nullable
 private Indirizzo sedeOperativa;
 }
