@@ -1,6 +1,7 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.Services;
 
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente_Ruolo;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.UtenteRepository;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.NotFoundException;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.UtentePayload;
@@ -20,10 +21,20 @@ public class UtenteService {
 
     public Utente save(UtentePayload body) throws IOException {
         Utente utente = new Utente();
-//        utente.setNome(body.nome());
+        utente.setUserName(body.userName());
+        utente.setEmail(body.email());
+        utente.setPassword(body.password());
+        utente.setNome(body.nome());
+        utente.setCognome(body.cognome());
+        utente.setAvatar("http://logoprova.it");
+
+
+        Utente_Ruolo utenteRuolo = new Utente_Ruolo();
+        utenteRuolo.setId(body.utenteRuoloId());
+        utente.setUtenteRuolo(utenteRuolo);
+
         return utenteRepository.save(utente);
     }
-
 
     public Utente findById(Long id) {
         return utenteRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
