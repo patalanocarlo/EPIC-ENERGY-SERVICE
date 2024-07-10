@@ -6,6 +6,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.*;
 
+import java.time.LocalDate;
+
 public record ClientePayload(
         @NotEmpty(message = "Il campo Ragione Sociale è obbligatorio!")
         @Size(min = 3, max = 10, message = "Ragione Sociale deve essere compreso fra 3 e 10 caratteri ")
@@ -46,7 +48,7 @@ public record ClientePayload(
 
         @NotEmpty(message = "Il via SedeLegale  è obbligatorio!")
         String viaSedeLegale,
-@NotNull (message = "Il campo numero civico sede legale è obbligatorio")
+        @NotNull (message = "Il campo numero civico sede legale è obbligatorio")
 int numeroCivicoSedeLegale,
         @NotNull(message = "Il campo CAP è obbligatorio")
         int capSedeLegale,
@@ -60,7 +62,11 @@ int numeroCivicoSedeLegale,
         String comuneSedeOperativa,
         String provinciaSedeOperativa,
         // questi sono facoltativi quindi niente annotazioni
+        @NotNull(message = "Il campo Data Inserimento è obbligatorio")
+        LocalDate dataInserimento,
 
+        @NotNull(message = "Il campo Data Ultimo Contatto è obbligatorio")
+        LocalDate dataUltimoContatto,
 
         @NotNull(message = "Il campo Telefono Contatto è obbligatorio")
         @Max(value = 20, message = "Il campo Telefono Contatto deve avere massimo 20 numeri.")

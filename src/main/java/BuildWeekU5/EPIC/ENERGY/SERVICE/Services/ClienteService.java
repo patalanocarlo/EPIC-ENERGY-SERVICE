@@ -42,8 +42,8 @@ public class ClienteService {
         cliente.setCognomeContatto(body.cognomeContatto());
         cliente.setEmailContatto(body.emailContatto());
         cliente.setTelefonoContatto(body.telefonoContatto());
-        cliente.setDataInserimento(LocalDate.now());
-        cliente.setDataUltimoContatto(LocalDate.now());
+        cliente.setDataInserimento(body.dataInserimento());
+        cliente.setDataUltimoContatto(body.dataUltimoContatto());
         cliente.setFatturatoAnnuale(0);
         cliente.setLogoAziendale("http://logoprova.it");
         Indirizzo indirizzoSedeLegale = new Indirizzo();
