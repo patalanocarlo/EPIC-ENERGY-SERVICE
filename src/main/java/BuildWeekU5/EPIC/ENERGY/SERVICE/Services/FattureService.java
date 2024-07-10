@@ -44,7 +44,10 @@ public class FattureService {
         Cliente cliente = clienteRepository.findById(body.clienteId())
                 .orElseThrow(() -> new IOException("Cliente non trovato  Con id : " + body.clienteId()));
         fatture.setCliente(cliente);
-        return fattureRepository.save(fatture);
+        Fatture savedFatture = fattureRepository.save(fatture);
+        updateFatturatoAnnuale(cliente.getId());
+
+        return savedFatture;
     }
     public Fatture findById(Long id) {
         return fattureRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
@@ -60,7 +63,16 @@ public class FattureService {
         return fattureRepository.findAll(pageable);
     }
 
-
+    private void updateFatturatoAnnuale(Long clienteId) {
+        Cliente cliente = clienteRepository.findById(clienteId)
+                .orElseThrow(() -> new NotFoundException("Cliente non trovato con id: " + clienteId));
+        double fatturatoAnnuale = fattureRepository.findByClienteId(clienteId)
+                .stream()
+                .mapToDouble(Fatture::getImporto)
+                .sum();
+        cliente.setFatturatoAnnuale((int) fatturatoAnnuale);
+        clienteRepository.save(cliente);
+    }
     }
 
 
