@@ -17,6 +17,9 @@ public record IndirizzoPayload(
         @Positive(message = "Il campo CAP deve essere un numero positivo!")
         int cap,
 
-        @NotNull(message = "Il campo Comune non può essere vuoto!")
-        String comuneId
+        @NotEmpty(message = "Il campo Provincia non può essere vuoto!")
+        String provincia,
+        @NotEmpty(message = "Il campo Comune non può essere vuoto!")
+        String comune
+
 ) {}

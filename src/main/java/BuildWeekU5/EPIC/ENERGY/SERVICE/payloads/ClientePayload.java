@@ -44,23 +44,6 @@ public record ClientePayload(
         @Email(message = "Formato email contatto non valido")
         String emailContatto,
 
-        @NotEmpty(message = "Il via SedeLegale  è obbligatorio!")
-        String viaSedeLegale,
-@NotNull (message = "Il campo numero civico sede legale è obbligatorio")
-int numeroCivicoSedeLegale,
-        @NotNull(message = "Il campo CAP è obbligatorio")
-        int capSedeLegale,
-        @NotEmpty(message = "Il Comune  è obbligatorio!")
-       String comuneSedeLegale,
-        @NotEmpty(message = "Il Provincia  è obbligatorio!")
-        String provinciaSedeLegale,
-        String viaSedeOperativa,
-        int numeroCivicoSedeOperativa,
-        int capSedeOperativa,
-        String comuneSedeOperativa,
-        String provinciaSedeOperativa,
-        // questi sono facoltativi quindi niente annotazioni
-
 
         @NotNull(message = "Il campo Telefono Contatto è obbligatorio")
         @Max(value = 20, message = "Il campo Telefono Contatto deve avere massimo 20 numeri.")

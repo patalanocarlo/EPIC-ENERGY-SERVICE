@@ -19,11 +19,7 @@ public class ClienteController {
 @Autowired
     private ClienteService clienteService;
 
-@PostMapping("/create")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Cliente createCliente(@RequestBody ClientePayload clientePayload) throws IOException {
-    return clienteService.save(clientePayload);
-}
+
 @GetMapping("/{clienteId}")
     public Cliente findyById(@PathVariable Long clienteId){
     return clienteService.findById(clienteId);

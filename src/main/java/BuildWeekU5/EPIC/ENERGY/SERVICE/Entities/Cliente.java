@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 
-@Table
+
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

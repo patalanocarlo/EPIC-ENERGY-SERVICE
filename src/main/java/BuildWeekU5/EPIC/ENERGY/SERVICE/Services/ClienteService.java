@@ -9,6 +9,7 @@ import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.ProvinciaRepository;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.NotFoundException;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.ClientePayload;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.FatturePayload;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.IndirizzoPayload;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,15 +52,6 @@ public class ClienteService {
         cliente.setDataUltimoContatto(LocalDate.now());
         cliente.setFatturatoAnnuale(0);
         cliente.setLogoAziendale("http://logoprova.it");
-        Indirizzo indirizzoSedeLegale = new Indirizzo();
-       indirizzoSedeLegale.setCap(body.capSedeLegale());
-       indirizzoSedeLegale.setVia(body.viaSedeLegale());
-       indirizzoSedeLegale.setCivico(body.numeroCivicoSedeLegale());
-       Provincia provinciafound = provincieService.findByName(body.provinciaSedeLegale());
-      List<Comune> comunes =  comuneService.findByNameAndProvincia(body.comuneSedeLegale(), provinciafound);
-       indirizzoSedeLegale.setComune(comunes.getFirst());
-       indirizzoService.save(indirizzoSedeLegale);
-       cliente.setSedeLegale(indirizzoSedeLegale);
         return clienteRepository.save(cliente);
     }
 
@@ -83,5 +75,18 @@ public class ClienteService {
     }
     public List<Cliente> getAllByOrderByFatturatoAnnuale() {
         return clienteRepository.findAllByOrderByFatturatoAnnualeDesc();
+    }
+public Cliente uploadIndirizzoSedeLegale(Indirizzo indirizzo, Cliente cliente){
+        Cliente found = this.findById(cliente.getId());
+        found.setSedeLegale(indirizzo);
+        return clienteRepository.save(found);
+}
+public Cliente uploadIndirizzoSedeOperativa(Indirizzo indirizzo, Cliente cliente){
+        Cliente found = this.findById(cliente.getId());
+        found.setSedeLegale(indirizzo);
+        return clienteRepository.save(found);
+}
+    public Cliente findByEmail(String email) {
+        return clienteRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Utente con email " + email + " non trovato!!"));
     }
 }

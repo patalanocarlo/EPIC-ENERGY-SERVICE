@@ -1,12 +1,11 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.controllers;
 
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Cliente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.AuthService;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.ClienteService;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.UtenteService;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.BadRequestException;
-import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.UtenteLoginPayload;
-import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.UtentePayload;
-import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.UtenteResponseAuthPayload;
-import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.UtenteResponsePayload;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -22,6 +21,8 @@ public class AuthController {
     private AuthService authService;
     @Autowired
     private UtenteService utenteService;
+    @Autowired
+    private ClienteService clienteService;
 
     @PostMapping("/login")
     public UtenteResponseAuthPayload login(@RequestBody UtenteLoginPayload payload) {
@@ -36,4 +37,22 @@ public class AuthController {
         }
         return new UtenteResponsePayload((long) this.utenteService.save(body).getId());
     }
+    @PostMapping("/registration/client")
+    @ResponseStatus(HttpStatus.CREATED)
+
+    public Cliente createCliente(@RequestBody @Validated ClientePayload clientePayload, BindingResult validation) throws IOException {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        }
+        return clienteService.save(clientePayload);
+    }
+//    @PostMapping("/login/client")
+//    @ResponseStatus(HttpStatus.CREATED)
+//
+//    public Cliente loginCliente(@RequestBody @Validated ClienteLoginPayload clientePayload, BindingResult validation) throws IOException {
+//        if (validation.hasErrors()) {
+//            throw new BadRequestException(validation.getAllErrors());
+//        }
+//        return  new ClienteResponseAuthPayload(authService.authenticateAndGenerateToken(clientePayload));
+//    }
 }
