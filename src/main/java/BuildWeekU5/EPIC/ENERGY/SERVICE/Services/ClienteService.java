@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class ClienteService {
@@ -54,5 +55,8 @@ public class ClienteService {
         String avatarURL = (String) cloudinaryUploader.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
         found.setLogoAziendale(avatarURL);
         return clienteRepository.save(found);
+    }
+    public List<Cliente> getAllByOrderByNomeContatto() {
+        return clienteRepository.findAllByOrderByNomeContattoAsc();
     }
 }

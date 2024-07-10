@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.IIOException;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/clienti")
@@ -31,6 +32,10 @@ public class ClienteController {
     @PostMapping("/{clienteId}/avatar")
     public Cliente uploadAvatar(@RequestParam("avatar") MultipartFile image, @PathVariable Long clienteId) throws IOException {
         return this.clienteService.uploadAvatar(clienteId, image);
+    }
+    @GetMapping("/orderByNome")
+    public List<Cliente> getAllByOrderByNome() {
+        return clienteService.getAllByOrderByNomeContatto();
     }
 
 }
