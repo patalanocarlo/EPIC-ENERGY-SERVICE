@@ -27,7 +27,8 @@ public class FattureService {
     private FattureRepository fattureRepository;
     @Autowired
     private RuoloStatoRepository ruoloStatoFatturaRepository;
-
+    @Autowired
+    private ClienteService clienteService;
     @Autowired
     private ClienteRepository clienteRepository;
 
@@ -43,7 +44,6 @@ public class FattureService {
         Cliente cliente = clienteRepository.findById(body.clienteId())
                 .orElseThrow(() -> new IOException("Cliente non trovato  Con id : " + body.clienteId()));
         fatture.setCliente(cliente);
-
         return fattureRepository.save(fatture);
     }
     public Fatture findById(Long id) {
@@ -59,6 +59,8 @@ public class FattureService {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         return fattureRepository.findAll(pageable);
     }
+
+
     }
 
 

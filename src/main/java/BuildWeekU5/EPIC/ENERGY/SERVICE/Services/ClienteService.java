@@ -29,14 +29,17 @@ public class ClienteService {
     public Cliente save(ClientePayload body) throws IOException {
         Cliente cliente = new Cliente();
         cliente.setRagioneSociale(body.ragioneSociale());
+        cliente.setPartitaIva(body.partitaIva());
         cliente.setEmail(body.email());
         cliente.setPec(body.pec());
         cliente.setTelefono(body.telefono());
-        cliente.setEmailContatto(body.emailContatto());
+        cliente.setNomeContatto(body.nomeContatto());
         cliente.setCognomeContatto(body.cognomeContatto());
-       cliente.setNomeContatto(body.nomeContatto());
+        cliente.setEmailContatto(body.emailContatto());
         cliente.setTelefonoContatto(body.telefonoContatto());
         cliente.setDataInserimento(LocalDate.now());
+        cliente.setDataUltimoContatto(LocalDate.now());
+        cliente.setFatturatoAnnuale(0);
         cliente.setLogoAziendale("http://logoprova.it");
         return clienteRepository.save(cliente);
     }
