@@ -41,7 +41,7 @@ public class FatturaController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public Fatture createFattura(@RequestBody FatturePayload fatturePayload, @AuthenticationPrincipal Cliente cliente) throws IOException {
-        return this.fattureService.save(fatturePayload, cliente);
+    public Fatture createFattura( @RequestBody FatturePayload fatturePayload) throws IOException {
+        return this.fattureService.save(fatturePayload);
     }
 }

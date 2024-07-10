@@ -33,7 +33,7 @@ public class FattureService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public Fatture save(FatturePayload body, Cliente cliente) throws IOException {
+    public Fatture save(FatturePayload body) throws IOException {
         Fatture fatture = new Fatture();
         fatture.setDataFattura(body.DataFattura());
         fatture.setImporto(body.Importo());
@@ -42,12 +42,14 @@ public class FattureService {
         fatture.setRuoloStatoFattura(ruoloStatoFattura);
 
 
-
+        Cliente cliente = clienteRepository.findById(body.clienteId())
+                .orElseThrow(() -> new IOException("Cliente non trovato  Con id : " + body.clienteId()));
         fatture.setCliente(cliente);
         Fatture savedFatture = fattureRepository.save(fatture);
         updateFatturatoAnnuale(cliente.getId());
 
         return savedFatture;
+
     }
     public Fatture findById(Long id) {
         return fattureRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
