@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.UUID;
 @Repository
 public interface ProvinciaRepository extends JpaRepository<Provincia, UUID> {
+
     Optional<Provincia> findBySigla(String sigla);
     Optional<Provincia> findByProvincia (String provincia);
 }
