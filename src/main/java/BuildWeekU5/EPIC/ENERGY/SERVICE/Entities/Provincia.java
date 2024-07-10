@@ -24,7 +24,7 @@ public class Provincia {
     @CsvBindByPosition(position = 0)
     private String sigla;
     @CsvBindByPosition(position = 1)
-    private String provincia;
+    private String name;
     @CsvBindByPosition(position = 2)
     private String regione;
 }

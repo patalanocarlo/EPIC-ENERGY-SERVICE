@@ -44,21 +44,21 @@ public record ClientePayload(
         @Email(message = "Formato email contatto non valido")
         String emailContatto,
 
-
-
         @NotEmpty(message = "Il via SedeLegale  è obbligatorio!")
         String viaSedeLegale,
 @NotNull (message = "Il campo numero civico sede legale è obbligatorio")
 int numeroCivicoSedeLegale,
         @NotNull(message = "Il campo CAP è obbligatorio")
-        int CapSedeLegale,
-
-
+        int capSedeLegale,
+        @NotEmpty(message = "Il Comune  è obbligatorio!")
+       String comuneSedeLegale,
+        @NotEmpty(message = "Il Provincia  è obbligatorio!")
+        String provinciaSedeLegale,
         String viaSedeOperativa,
-
         int numeroCivicoSedeOperativa,
-
-        int CapSedeOperativa,
+        int capSedeOperativa,
+        String comuneSedeOperativa,
+        String provinciaSedeOperativa,
         // questi sono facoltativi quindi niente annotazioni
 
 

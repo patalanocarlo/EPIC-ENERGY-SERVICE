@@ -31,16 +31,18 @@ public class Comune {
     private String codiceComune;
     @NotNull
     @CsvBindByPosition(position = 2)
-    private String Denominazione;
+    private String name;
     @NotNull
     @CsvBindByPosition(position = 3)
     private String provincia;
+    @ManyToOne
+    private Provincia provinciaList;
 
 
     public Comune(String codiceProvincia, String codiceComune, String denominazione, String provincia) {
        this.codiceProvincia = codiceProvincia;
         this.codiceComune = codiceComune;
-        Denominazione = denominazione;
+        this.name = denominazione;
         this.provincia = provincia;
     }
 }

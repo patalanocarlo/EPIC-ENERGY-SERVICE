@@ -1,10 +1,11 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.Services;
 
 
-import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Cliente;
-import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Fatture;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.*;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.ClienteRepository;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.ComuneRepository;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.FattureRepository;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.ProvinciaRepository;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.NotFoundException;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.ClientePayload;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.FatturePayload;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClienteService {
@@ -25,8 +27,14 @@ public class ClienteService {
 
     @Autowired
     private Cloudinary cloudinaryUploader;
+  @Autowired
+    private ComuneService comuneService;
+    @Autowired
+    private ProvincieService provincieService;
+
 
     public Cliente save(ClientePayload body) throws IOException {
+
         Cliente cliente = new Cliente();
         cliente.setRagioneSociale(body.ragioneSociale());
         cliente.setPartitaIva(body.partitaIva());
@@ -41,6 +49,13 @@ public class ClienteService {
         cliente.setDataUltimoContatto(LocalDate.now());
         cliente.setFatturatoAnnuale(0);
         cliente.setLogoAziendale("http://logoprova.it");
+        Indirizzo indirizzoSedeLegale = new Indirizzo();
+       indirizzoSedeLegale.setCap(body.capSedeLegale());
+       indirizzoSedeLegale.setVia(body.viaSedeLegale());
+       indirizzoSedeLegale.setCivico(body.numeroCivicoSedeLegale());
+      List<Comune> comunes =  comuneService.findByNameAndProvincia(body.comuneSedeLegale(), provincieService.findByName(body.provinciaSedeLegale()));
+       indirizzoSedeLegale.setComune(comunes.getFirst());
+       cliente.setSedeLegale(indirizzoSedeLegale);
         return clienteRepository.save(cliente);
     }
 
