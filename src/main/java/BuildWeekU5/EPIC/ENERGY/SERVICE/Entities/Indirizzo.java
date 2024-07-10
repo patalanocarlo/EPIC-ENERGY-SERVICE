@@ -17,8 +17,6 @@ public class Indirizzo {
     private String via;
     private int civico;
     private int cap;
-
-
     @OneToOne
     private  Comune comune;
 }

@@ -1,6 +1,7 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.Services;
 
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Comune;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Provincia;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.ComuneRepository;
 import com.opencsv.bean.CsvToBeanBuilder;
 import jakarta.annotation.PostConstruct;
@@ -11,12 +12,15 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class ComuneService {
     @Autowired
     ComuneRepository comuneRepository;
+    @Autowired
+    ProvincieService provincieService;
     @PostConstruct
     public void init() {
         loadCsvData();
@@ -29,8 +33,6 @@ public class ComuneService {
                     .withSkipLines(1)
                     .build()
                     .parse();
-
-
             comuneRepository.saveAll(comuni);
         } catch (Exception e) {
             e.printStackTrace();
