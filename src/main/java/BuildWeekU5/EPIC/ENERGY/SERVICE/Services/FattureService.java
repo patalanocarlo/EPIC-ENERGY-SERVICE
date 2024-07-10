@@ -11,6 +11,7 @@ import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.UtenteRepository;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.NotFoundException;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.FatturePayload;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.UtentePayload;
+import ch.qos.logback.core.net.server.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,7 +33,7 @@ public class FattureService {
     @Autowired
     private ClienteRepository clienteRepository;
 
-    public Fatture save(FatturePayload body) throws IOException {
+    public Fatture save(FatturePayload body, Cliente cliente) throws IOException {
         Fatture fatture = new Fatture();
         fatture.setDataFattura(body.DataFattura());
         fatture.setImporto(body.Importo());
@@ -41,8 +42,7 @@ public class FattureService {
         fatture.setRuoloStatoFattura(ruoloStatoFattura);
 
 
-        Cliente cliente = clienteRepository.findById(body.clienteId())
-                .orElseThrow(() -> new IOException("Cliente non trovato  Con id : " + body.clienteId()));
+
         fatture.setCliente(cliente);
         Fatture savedFatture = fattureRepository.save(fatture);
         updateFatturatoAnnuale(cliente.getId());

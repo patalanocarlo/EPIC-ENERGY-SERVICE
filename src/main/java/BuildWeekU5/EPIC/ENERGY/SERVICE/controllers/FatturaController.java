@@ -1,5 +1,6 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.controllers;
 
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Cliente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Fatture;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.FattureService;
@@ -40,7 +41,7 @@ public class FatturaController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public Fatture createFattura( @RequestBody FatturePayload fatturePayload) throws IOException {
-        return this.fattureService.save(fatturePayload);
+    public Fatture createFattura(@RequestBody FatturePayload fatturePayload, @AuthenticationPrincipal Cliente cliente) throws IOException {
+        return this.fattureService.save(fatturePayload, cliente);
     }
 }
