@@ -2,7 +2,6 @@ package BuildWeekU5.EPIC.ENERGY.SERVICE.Entities;
 
 import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvBindByPosition;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -25,7 +24,6 @@ public class Provincia {
     @CsvBindByPosition(position = 0)
     private String sigla;
     @CsvBindByPosition(position = 1)
- //   @Column(unique = true)
     private String name;
     @CsvBindByPosition(position = 2)
     private String regione;

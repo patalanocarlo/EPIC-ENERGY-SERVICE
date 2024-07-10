@@ -14,7 +14,6 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -38,48 +37,12 @@ public class ComuneService {
                     .withSkipLines(1)
                     .build()
                     .parse();
-
             for (Provincia provincia : province) {
              if (provincia.getSigla().equals("Roma")) {
                  provincia.setSigla("RM");
-               } else if (provincia.getName().equals("La-Spezia")) {
-                 provincia.setName("La Spezia");
-             } else if (provincia.getName().equals("Reggio-Emilia")) {
-                 provincia.setName("Reggio Emilia");
-             } else if (provincia.getName().equals("Reggio-Calabria")) {
-                 provincia.setName("Reggio Calabria");
-             } else if (provincia.getName().equals("Forli-Cesena")) {
-                 provincia.setName("Forlì Cesena");
-             } else if (provincia.getName().equals("Pesaro-Urbino")) {
-                 provincia.setName("Pesaro e Urbino");
-             } else if (provincia.getName().equals("Ascoli-Piceno")) {
-                 provincia.setName("Ascoli Piceno");
-             } else if (provincia.getName().equals("Vibo-Valentia")) {
-                 provincia.setName("Vibo Valentia");
-             }
-            }
-            Provincia verbanoCusioOssola = new Provincia();
-            verbanoCusioOssola.setName("Verbano-Cusio-Ossola");
-            verbanoCusioOssola.setSigla("VCO");
-            verbanoCusioOssola.setRegione("Piemonte");
-            province.add(verbanoCusioOssola);
-            Provincia Aosta = new Provincia();
-            Aosta.setName("Aosta");
-            Aosta.setSigla("AO");
-            Aosta.setRegione("Valle D'Aosta");
-            province.add(Aosta);
+               }
+           }
 
-            Provincia MonzaBrianza = new Provincia();
-            MonzaBrianza.setName("Monza e della Brianza");
-            MonzaBrianza.setSigla("MB");
-            MonzaBrianza.setRegione("Lombardia");
-            province.add(MonzaBrianza);
-
-Provincia sudSardegna = new Provincia();
-sudSardegna.setName("Sud Sardegna");
-sudSardegna.setSigla("SU");
-sudSardegna.setRegione("Sardegna");
-province.add(sudSardegna);
             provinciaRepository.saveAll(province);
 
             try (Reader comuneReader = new FileReader("comuni-italiani.csv")) {
@@ -89,27 +52,15 @@ province.add(sudSardegna);
                         .withSkipLines(1)
                         .build()
                         .parse();
-                for (Comune comune : comuni) {
-                   if (Objects.equals(comune.getProvincia(), "Valle d'Aosta/Vallée d'Aoste")) {
-                        comune.setProvincia("Aosta");} else if (Objects.equals(comune.getProvincia(), "Bolzano/Bozen")) {
-comune.setProvincia("Bolzano");
-                   } else if (Objects.equals(comune.getProvincia(), "Reggio nell'Emilia")) {
-                     comune.setProvincia("Reggio Emilia");
-                   } else if (Objects.equals(comune.getProvincia(), "Forlì-Cesena")) {
-                       comune.setProvincia("Forlì Cesena");
-                   }
-                }
-                for (Comune comune : comuni) {
 
+                for (Comune comune : comuni) {
                     List<Provincia> provinciaList = provinciaRepository.findByName(comune.getProvincia());
 
                     if (provinciaList.isEmpty()) {
-                        System.out.println("Provincia non trovata per il comune: " + comune.getName());
-                        continue;
+                        throw new IllegalArgumentException("Provincia non trovata per il comune: " + comune.getName());
                     } else if (provinciaList.size() > 1) {
+
                         comune.setProvinciaList(provinciaList.get(0));
-                    } else if (Objects.equals(comune.getProvincia(), "Valle d'Aosta/Vallée d'Aoste")) {
-                        comune.setProvincia("Aosta");
                     } else {
                         comune.setProvinciaList(provinciaList.get(0));
                     }
