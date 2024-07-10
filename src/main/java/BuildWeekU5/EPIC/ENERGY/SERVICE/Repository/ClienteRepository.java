@@ -12,5 +12,7 @@ import java.util.UUID;
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     List<Cliente> findAllByOrderByNomeContattoAsc();
     List<Cliente> findAllByOrderByFatturatoAnnualeDesc();
+    List<Cliente> findAllByOrderByDataInserimentoDesc(); // Corrected method name
+    List<Cliente> findAllByOrderByDataUltimoContattoDesc();
 }
 

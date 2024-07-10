@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.IIOException;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -41,4 +42,14 @@ public class ClienteController {
     public List<Cliente> getAllByOrderByFatturatoAnnuale() {
         return clienteService.getAllByOrderByFatturatoAnnuale();
     }
+    @GetMapping("/orderByDataInserimento")
+    public List<Cliente> getAllByOrderByDataInserimento() {
+        return clienteService.getAllByOrderByDataInserimento();
+    }
+
+    @GetMapping("/orderByDataUltimoContatto")
+    public List<Cliente> getAllByOrderByDataUltimoContatto() {
+        return clienteService.getAllByOrderByDataUltimoContatto();
+    }
+
 }

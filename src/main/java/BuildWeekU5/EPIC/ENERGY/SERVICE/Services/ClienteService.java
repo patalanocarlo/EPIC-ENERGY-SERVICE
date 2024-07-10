@@ -3,12 +3,8 @@ package BuildWeekU5.EPIC.ENERGY.SERVICE.Services;
 
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.*;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.ClienteRepository;
-import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.ComuneRepository;
-import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.FattureRepository;
-import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.ProvinciaRepository;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.NotFoundException;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.ClientePayload;
-import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.FatturePayload;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ClienteService {
@@ -83,5 +78,12 @@ public class ClienteService {
     }
     public List<Cliente> getAllByOrderByFatturatoAnnuale() {
         return clienteRepository.findAllByOrderByFatturatoAnnualeDesc();
+    }
+    public List<Cliente> getAllByOrderByDataInserimento() {
+        return clienteRepository.findAllByOrderByDataInserimentoDesc();
+    }
+
+    public List<Cliente> getAllByOrderByDataUltimoContatto() {
+        return clienteRepository.findAllByOrderByDataUltimoContattoDesc();
     }
 }
