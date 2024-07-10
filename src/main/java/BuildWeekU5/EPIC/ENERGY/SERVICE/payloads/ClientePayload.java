@@ -44,10 +44,10 @@ public record ClientePayload(
         @Email(message = "Formato email contatto non valido")
         String emailContatto,
 
-        @Nullable
+        @NotEmpty(message = "Il campo Cognome Contatto è obbligatorio!")
         String sedeOperativa,
 
-        @Nullable
+        @NotEmpty(message = "Il campo Cognome Contatto è obbligatorio!")
         String sedeLegale,
 
         @NotNull(message = "Il campo Telefono Contatto è obbligatorio")

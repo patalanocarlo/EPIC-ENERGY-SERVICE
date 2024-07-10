@@ -62,4 +62,7 @@ public class ClienteService {
     public List<Cliente> getAllByOrderByNomeContatto() {
         return clienteRepository.findAllByOrderByNomeContattoAsc();
     }
+    public List<Cliente> getAllByOrderByFatturatoAnnuale() {
+        return clienteRepository.findAllByOrderByFatturatoAnnualeDesc();
+    }
 }

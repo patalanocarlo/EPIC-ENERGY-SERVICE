@@ -26,7 +26,7 @@ public class Cliente {
     private String email;
     private LocalDate dataInserimento;
     private LocalDate dataUltimoContatto;
-    private int FatturatoAnnuale;
+    private int fatturatoAnnuale;
     private String pec;
     private int telefono;
     private String emailContatto;
@@ -38,9 +38,7 @@ public class Cliente {
     @OneToMany
     private List<Fatture> fattures;
     @OneToOne
-    @Nullable
 private Indirizzo sedeLegale;
     @OneToOne
-    @Nullable
 private Indirizzo sedeOperativa;
 }

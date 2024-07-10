@@ -37,5 +37,8 @@ public class ClienteController {
     public List<Cliente> getAllByOrderByNome() {
         return clienteService.getAllByOrderByNomeContatto();
     }
-
+    @GetMapping("/orderByFatturatoAnnuale")
+    public List<Cliente> getAllByOrderByFatturatoAnnuale() {
+        return clienteService.getAllByOrderByFatturatoAnnuale();
+    }
 }
