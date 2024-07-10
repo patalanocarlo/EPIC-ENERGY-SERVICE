@@ -1,6 +1,7 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 
-
+@JsonIgnoreProperties({"password", "authorities", "enabled", "accountNonExpired", "credentialsNonExpired", "accountNonLocked"})
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +29,13 @@ public class Cliente {
     private LocalDate dataUltimoContatto;
     private int fatturatoAnnuale;
     private String pec;
-    private int telefono;
+    private String telefono;
     private String emailContatto;
     private String nomeContatto;
     private String CognomeContatto;
-    private int TelefonoContatto;
+    private String TelefonoContatto;
     private String LogoAziendale;
+    private String password;
 
     @OneToMany
     private List<Fatture> fattures;

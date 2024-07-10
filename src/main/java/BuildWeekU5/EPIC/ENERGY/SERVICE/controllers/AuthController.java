@@ -37,7 +37,7 @@ public class AuthController {
         }
         return new UtenteResponsePayload((long) this.utenteService.save(body).getId());
     }
-    @PostMapping("/registration/client")
+    @PostMapping("/registration/cliente")
     @ResponseStatus(HttpStatus.CREATED)
 
     public Cliente createCliente(@RequestBody @Validated ClientePayload clientePayload, BindingResult validation) throws IOException {
@@ -46,13 +46,12 @@ public class AuthController {
         }
         return clienteService.save(clientePayload);
     }
-//    @PostMapping("/login/client")
-//    @ResponseStatus(HttpStatus.CREATED)
-//
-//    public Cliente loginCliente(@RequestBody @Validated ClienteLoginPayload clientePayload, BindingResult validation) throws IOException {
-//        if (validation.hasErrors()) {
-//            throw new BadRequestException(validation.getAllErrors());
-//        }
-//        return  new ClienteResponseAuthPayload(authService.authenticateAndGenerateToken(clientePayload));
-//    }
+    @PostMapping("/login/client")
+   @ResponseStatus(HttpStatus.CREATED)
+public ClienteResponseAuthPayload loginCliente(@RequestBody @Validated ClienteLoginPayload clientePayload, BindingResult validation) throws IOException {
+       if (validation.hasErrors()) {
+           throw new BadRequestException(validation.getAllErrors());
+        }
+        return  new ClienteResponseAuthPayload(authService.authenticateAndGenerateTokenCliente(clientePayload));
+  }
 }

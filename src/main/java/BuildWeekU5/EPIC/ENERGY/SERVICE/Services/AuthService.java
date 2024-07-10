@@ -29,12 +29,12 @@ public class AuthService {
             throw new UnauthorizedException("Email o password non corretta!");
         }
     }
-//    public String authenticateAndGenerateTokenCliente(ClienteLoginPayload payload) {
-//        Cliente cliente = clienteService.findByEmail(payload.email());
-//        if (passwordEncoder.matches(payload.password(), cliente.getPassword())) {
-//            return jwtTools.createToken(utente);
-//        } else {
-//            throw new UnauthorizedException("Email o password non corretta!");
-//        }
-//    }
+    public String authenticateAndGenerateTokenCliente(ClienteLoginPayload payload) {
+        Cliente cliente = clienteService.findByEmail(payload.email());
+       if (passwordEncoder.matches(payload.password(), cliente.getPassword())) {
+           return jwtTools.createTokenCliente(cliente);
+       } else {
+           throw new UnauthorizedException("Email o password non corretta!");
+       }
+   }
 }

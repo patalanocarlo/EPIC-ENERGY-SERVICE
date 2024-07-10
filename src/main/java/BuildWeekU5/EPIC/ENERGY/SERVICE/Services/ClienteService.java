@@ -13,6 +13,7 @@ import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.IndirizzoPayload;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,6 +35,8 @@ public class ClienteService {
     private ProvincieService provincieService;
     @Autowired
     private IndirizzoService indirizzoService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     public Cliente save(ClientePayload body) throws IOException {
@@ -52,6 +55,7 @@ public class ClienteService {
         cliente.setDataUltimoContatto(LocalDate.now());
         cliente.setFatturatoAnnuale(0);
         cliente.setLogoAziendale("http://logoprova.it");
+        cliente.setPassword(passwordEncoder.encode(body.password()));
         return clienteRepository.save(cliente);
     }
 
@@ -87,6 +91,6 @@ public Cliente uploadIndirizzoSedeOperativa(Indirizzo indirizzo, Cliente cliente
         return clienteRepository.save(found);
 }
     public Cliente findByEmail(String email) {
-        return clienteRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Utente con email " + email + " non trovato!!"));
+        return clienteRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Cliente con email " + email + " non trovato!!"));
     }
 }

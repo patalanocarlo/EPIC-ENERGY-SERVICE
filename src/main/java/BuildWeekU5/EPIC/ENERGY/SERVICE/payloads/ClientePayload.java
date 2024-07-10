@@ -8,13 +8,12 @@ import jakarta.validation.constraints.*;
 
 public record ClientePayload(
         @NotEmpty(message = "Il campo Ragione Sociale è obbligatorio!")
-        @Size(min = 3, max = 10, message = "Ragione Sociale deve essere compreso fra 3 e 10 caratteri ")
+//        @Size(min = 3, max = 10, message = "Ragione Sociale deve essere compreso fra 3 e 10 caratteri ")
         String ragioneSociale,
 
         @NotNull(message = "Il campo Partita Iva è obbligatorio")
-        @Max(value = 11, message = "Il campo Partita Iva deve avere massimo 11 numeri.")
-        Integer partitaIva,
-
+//        @Max(value = 11, message = "Il campo Partita Iva deve avere massimo 11 numeri.")
+        int partitaIva,
 
         @NotEmpty(message = "Il campo Email è obbligatorio!")
         @Email(message = "Formato email non valido")
@@ -29,8 +28,8 @@ public record ClientePayload(
         String password,
 
         @NotNull(message = "Il campo Telefono è obbligatorio")
-        @Max(value = 10, message = "Il campo Telefono deve avere massimo 10 numeri.")
-        Integer telefono,
+//        @Max(value = 10, message = "Il campo Telefono deve avere massimo 10 numeri.")
+       String telefono,
 
         @NotEmpty(message = "Il campo Nome Contatto è obbligatorio!")
         @Size(min = 3, max = 10, message = "Nome Contatto deve essere compreso fra 3 e 10 caratteri ")
@@ -46,8 +45,8 @@ public record ClientePayload(
 
 
         @NotNull(message = "Il campo Telefono Contatto è obbligatorio")
-        @Max(value = 20, message = "Il campo Telefono Contatto deve avere massimo 20 numeri.")
-        Integer telefonoContatto
+//        @Max(value = 20, message = "Il campo Telefono Contatto deve avere massimo 20 numeri.")
+        String telefonoContatto
 
 ) {
 }
