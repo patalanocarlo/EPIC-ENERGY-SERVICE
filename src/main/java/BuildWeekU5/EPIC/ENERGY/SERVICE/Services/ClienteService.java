@@ -80,4 +80,10 @@ public class ClienteService {
     public List<Cliente> getAllByOrderByFatturatoAnnuale() {
         return clienteRepository.findAllByOrderByFatturatoAnnualeDesc();
     }
+    public List<Cliente> getAllByOrderByDataInserimento() {
+        return clienteRepository.findAllByOrderByDataInserimento();
+    }
+    public List<Cliente> getAllByOrderByDataUltimoContatto (){
+        return clienteRepository.findAllByOrderByDataUltimoContatto();
+    }
 }
