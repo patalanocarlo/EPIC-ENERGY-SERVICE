@@ -22,7 +22,7 @@ public class IndirizzoService {
     @Autowired
     private ComuneRepository comuneRepository;
 
-    public Indirizzo save(IndirizzoPayload body) throws IOException {
+    public Indirizzo saveFromPostman(IndirizzoPayload body) throws IOException {
         Indirizzo indirizzo = new Indirizzo();
         indirizzo.setVia(body.via());
         indirizzo.setCivico(body.civico());
@@ -34,6 +34,9 @@ public class IndirizzoService {
                 .orElseThrow(() -> new IOException("id del comune non trovato " + body.comuneId()));
         indirizzo.setComune(comune);
 
+        return indirizzoRepository.save(indirizzo);
+    }
+    public Indirizzo save(Indirizzo indirizzo){
         return indirizzoRepository.save(indirizzo);
     }
     public Indirizzo findById(Long id) {

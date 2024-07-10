@@ -123,19 +123,9 @@ comune.setProvincia("Bolzano");
         }
     }
   public List<Comune> findByNameAndProvincia(String name, Provincia provincia){
-        List<Comune> comuneList = new ArrayList<>(comuneRepository.findByNameAndProvincia(name, provincia));
+        List<Comune> comuneList = new ArrayList<>(comuneRepository.findByNameAndProvincia(name, provincia.getName()));
        return comuneList;
     }
 }
-//    public List<Comune> findByProvincia(String provinciaName){
-//        List<Comune> comuneList = new ArrayList<>();
-//        if(comuneRepository.findByProvincia(provinciaName) != null){
-//
-//      comuneList.addAll(comuneRepository.findByProvincia(provinciaName) ) ;
-//        } else {
-//            System.out.println("Errore");
-//            // da gestire meglio
-//        }
-//      return comuneList;
-//    }
+
 

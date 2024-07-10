@@ -13,6 +13,6 @@ import java.util.UUID;
 @Repository
 public interface ComuneRepository extends JpaRepository<Comune, UUID> {
     List<Comune> findByProvincia(String provincia);
-    List<Comune> findByNameAndProvincia(String name, Provincia provincia);
+    List<Comune> findByNameAndProvincia(String name, String provincia);
 }
 

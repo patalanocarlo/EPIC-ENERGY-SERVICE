@@ -31,6 +31,8 @@ public class ClienteService {
     private ComuneService comuneService;
     @Autowired
     private ProvincieService provincieService;
+    @Autowired
+    private IndirizzoService indirizzoService;
 
 
     public Cliente save(ClientePayload body) throws IOException {
@@ -53,8 +55,10 @@ public class ClienteService {
        indirizzoSedeLegale.setCap(body.capSedeLegale());
        indirizzoSedeLegale.setVia(body.viaSedeLegale());
        indirizzoSedeLegale.setCivico(body.numeroCivicoSedeLegale());
-      List<Comune> comunes =  comuneService.findByNameAndProvincia(body.comuneSedeLegale(), provincieService.findByName(body.provinciaSedeLegale()));
+       Provincia provinciafound = provincieService.findByName(body.provinciaSedeLegale());
+      List<Comune> comunes =  comuneService.findByNameAndProvincia(body.comuneSedeLegale(), provinciafound);
        indirizzoSedeLegale.setComune(comunes.getFirst());
+       indirizzoService.save(indirizzoSedeLegale);
        cliente.setSedeLegale(indirizzoSedeLegale);
         return clienteRepository.save(cliente);
     }
