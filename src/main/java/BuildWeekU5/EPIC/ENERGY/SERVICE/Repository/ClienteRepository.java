@@ -24,5 +24,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     List<Cliente> findByDataUltimoContattoAfter(LocalDate dataUltimoContatto);
     List<Cliente> findByNomeContattoContainingIgnoreCase(String nomeContatto);
     Optional<Cliente> findByEmail(String email);
+
 }
 

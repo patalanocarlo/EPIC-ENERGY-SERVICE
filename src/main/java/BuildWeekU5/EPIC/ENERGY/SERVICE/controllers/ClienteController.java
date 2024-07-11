@@ -84,7 +84,11 @@ public class ClienteController {
     public List<Cliente> filterByNomeContatto(@RequestParam String nomeContatto) {
         return clienteService.filterByNomeContatto(nomeContatto);
     }
-
+//@GetMapping("/filterByNomeProvincia")
+//public List<Cliente> filterByNomeProvincia(@RequestParam String nomeProvincia){
+//
+//}
+    // manca solo questo come endpoint
     @PostMapping("/registration/cliente")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAuthority('CLIENTE')")
