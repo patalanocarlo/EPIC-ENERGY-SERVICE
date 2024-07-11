@@ -30,6 +30,7 @@ public class ClienteService {
     private IndirizzoService indirizzoService;
 
 
+
     public Cliente save(ClientePayload body) throws IOException {
 
         Cliente cliente = new Cliente();
@@ -85,5 +86,20 @@ public class ClienteService {
 
     public List<Cliente> getAllByOrderByDataUltimoContatto() {
         return clienteRepository.findAllByOrderByDataUltimoContattoDesc();
+    }
+    public List<Cliente> filterByFatturatoAnnuale(int fatturatoAnnuale) {
+        return clienteRepository.findByFatturatoAnnualeGreaterThanEqual(fatturatoAnnuale);
+    }
+
+    public List<Cliente> filterByDataInserimento(LocalDate dataInserimento) {
+        return clienteRepository.findByDataInserimentoAfter(dataInserimento);
+    }
+
+    public List<Cliente> filterByDataUltimoContatto(LocalDate dataUltimoContatto) {
+        return clienteRepository.findByDataUltimoContattoAfter(dataUltimoContatto);
+    }
+
+    public List<Cliente> filterByNomeContatto(String nomeContatto) {
+        return clienteRepository.findByNomeContattoContainingIgnoreCase(nomeContatto);
     }
 }

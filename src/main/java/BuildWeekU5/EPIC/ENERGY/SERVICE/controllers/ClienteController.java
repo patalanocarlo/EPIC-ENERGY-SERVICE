@@ -5,6 +5,7 @@ import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.ClienteService;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.ClientePayload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +21,10 @@ public class ClienteController {
 @Autowired
     private ClienteService clienteService;
 
+    @GetMapping
+    public List<Cliente> getAllClients() {
+        return clienteService.getAllByOrderByNomeContatto();
+    }
 @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente createCliente(@RequestBody ClientePayload clientePayload) throws IOException {
@@ -51,5 +56,23 @@ public class ClienteController {
     public List<Cliente> getAllByOrderByDataUltimoContatto() {
         return clienteService.getAllByOrderByDataUltimoContatto();
     }
+    @GetMapping("/filterByFatturatoAnnuale")
+    public List<Cliente> filterByFatturatoAnnuale(@RequestParam int fatturatoAnnuale) {
+        return clienteService.filterByFatturatoAnnuale(fatturatoAnnuale);
+    }
 
+    @GetMapping("/filterByDataInserimento")
+    public List<Cliente> filterByDataInserimento(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInserimento) {
+        return clienteService.filterByDataInserimento(dataInserimento);
+    }
+
+    @GetMapping("/filterByDataUltimoContatto")
+    public List<Cliente> filterByDataUltimoContatto(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataUltimoContatto) {
+        return clienteService.filterByDataUltimoContatto(dataUltimoContatto);
+    }
+
+    @GetMapping("/filterByNomeContatto")
+    public List<Cliente> filterByNomeContatto(@RequestParam String nomeContatto) {
+        return clienteService.filterByNomeContatto(nomeContatto);
+    }
 }
