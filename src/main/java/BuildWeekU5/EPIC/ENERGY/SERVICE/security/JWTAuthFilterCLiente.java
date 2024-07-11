@@ -21,11 +21,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @Component
-public class  JWTAuthFilter extends OncePerRequestFilter {
+public class JWTAuthFilterCLiente extends OncePerRequestFilter {
     @Autowired
     private JWTTools jwtTools;
-    @Autowired
-    private UtenteService utenteService;
+
     @Autowired
     private ClienteService clienteService;
 
@@ -38,10 +37,8 @@ public class  JWTAuthFilter extends OncePerRequestFilter {
         jwtTools.verifyToken(accessToken);
 
         String utenteId = jwtTools.extractIdFromToken(accessToken);
-        Utente utente = utenteService.findById(Long.valueOf(utenteId));
+        Cliente cliente = clienteService.findById(Long.valueOf(utenteId));
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(utente, null, utente.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }
 

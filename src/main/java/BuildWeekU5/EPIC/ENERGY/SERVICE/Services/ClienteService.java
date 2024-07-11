@@ -53,6 +53,7 @@ public class ClienteService {
         cliente.setTelefonoContatto(body.telefonoContatto());
         cliente.setDataInserimento(LocalDate.now());
         cliente.setDataUltimoContatto(LocalDate.now());
+        // da chiedere a riccardo
         cliente.setFatturatoAnnuale(0);
         cliente.setLogoAziendale("http://logoprova.it");
         cliente.setPassword(passwordEncoder.encode(body.password()));

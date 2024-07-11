@@ -16,26 +16,26 @@ import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/indirizzo")
+@RequestMapping("/indirizzi")
 public class IndirizzoController {
     @Autowired
     ClienteService clienteService;
     @Autowired
     IndirizzoService indirizzoService;
     @PostMapping("/sede-legale")
-    public Cliente createIndirizzoSedeLegale(@RequestBody IndirizzoPayload body,
+    public Cliente createIndirizzoSedeLegale(
                                              @AuthenticationPrincipal Cliente cliente) throws IOException {
 
-        Cliente clienteFound = clienteService.findById(cliente.getId());
-        Indirizzo indirizzo = indirizzoService.save(body);
-        return clienteService.uploadIndirizzoSedeLegale(indirizzo, clienteFound);
-    }
+      //  Cliente clienteFound = clienteService.findById(cliente.getId());
+      //  Indirizzo indirizzo = indirizzoService.save(body);
+        return cliente;
+    }}
 
-    @PostMapping("/sede-operativa")
-    public Cliente createIndirizzoSedeOperativa(@RequestBody IndirizzoPayload body,
-                                                @AuthenticationPrincipal Cliente cliente) throws IOException {
-        Cliente clienteFound = clienteService.findById(cliente.getId());
-        Indirizzo indirizzo = indirizzoService.save(body);
-        return clienteService.uploadIndirizzoSedeOperativa(indirizzo, cliente);
-    }
-}
+//    @PostMapping("/sede-operativa")
+//    public Cliente createIndirizzoSedeOperativa(@RequestBody IndirizzoPayload body,
+//                                                @AuthenticationPrincipal Cliente cliente) throws IOException {
+//        Cliente clienteFound = clienteService.findById(cliente.getId());
+//        Indirizzo indirizzo = indirizzoService.save(body);
+//        return clienteService.uploadIndirizzoSedeOperativa(indirizzo, cliente);
+//    }
+//}

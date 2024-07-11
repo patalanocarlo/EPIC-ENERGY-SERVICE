@@ -46,7 +46,7 @@ public class AuthController {
         }
         return clienteService.save(clientePayload);
     }
-    @PostMapping("/login/client")
+    @PostMapping("/login/cliente")
    @ResponseStatus(HttpStatus.CREATED)
 public ClienteResponseAuthPayload loginCliente(@RequestBody @Validated ClienteLoginPayload clientePayload, BindingResult validation) throws IOException {
        if (validation.hasErrors()) {
