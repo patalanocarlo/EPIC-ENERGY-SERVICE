@@ -56,30 +56,17 @@ public class ComuneService {
                  provincia.setName("Ascoli Piceno");
              } else if (provincia.getName().equals("Vibo-Valentia")) {
                  provincia.setName("Vibo Valentia");
+             } else if (provincia.getName().equals("Monza-Brianza")) {
+                 provincia.setName("Monza e della Brianza");
+             } else if (provincia.getName().equals("Verbania")) {
+                 provincia.setName("Verbano Cusio Ossola");
+                 provincia.setSigla("VCO");
+             } else if (provincia.getName().equals("Carbonia Iglesias")) {
+                 provincia.setName("Sud Sardegna");
+                 provincia.setSigla("SU");
              }
             }
-            Provincia verbanoCusioOssola = new Provincia();
-            verbanoCusioOssola.setName("Verbano-Cusio-Ossola");
-            verbanoCusioOssola.setSigla("VCO");
-            verbanoCusioOssola.setRegione("Piemonte");
-            province.add(verbanoCusioOssola);
-            Provincia Aosta = new Provincia();
-            Aosta.setName("Aosta");
-            Aosta.setSigla("AO");
-            Aosta.setRegione("Valle D'Aosta");
-            province.add(Aosta);
 
-            Provincia MonzaBrianza = new Provincia();
-            MonzaBrianza.setName("Monza e della Brianza");
-            MonzaBrianza.setSigla("MB");
-            MonzaBrianza.setRegione("Lombardia");
-            province.add(MonzaBrianza);
-
-Provincia sudSardegna = new Provincia();
-sudSardegna.setName("Sud Sardegna");
-sudSardegna.setSigla("SU");
-sudSardegna.setRegione("Sardegna");
-province.add(sudSardegna);
             provinciaRepository.saveAll(province);
 
             try (Reader comuneReader = new FileReader("comuni-italiani.csv")) {
@@ -89,6 +76,7 @@ province.add(sudSardegna);
                         .withSkipLines(1)
                         .build()
                         .parse();
+                int codiceProgressivo = 1;
                 for (Comune comune : comuni) {
                    if (Objects.equals(comune.getProvincia(), "Valle d'Aosta/Vallée d'Aoste")) {
                         comune.setProvincia("Aosta");} else if (Objects.equals(comune.getProvincia(), "Bolzano/Bozen")) {
@@ -97,6 +85,11 @@ comune.setProvincia("Bolzano");
                      comune.setProvincia("Reggio Emilia");
                    } else if (Objects.equals(comune.getProvincia(), "Forlì-Cesena")) {
                        comune.setProvincia("Forlì Cesena");
+                   } else if (comune.getProvincia().equals("Verbano-Cusio-Ossola")) {
+                       comune.setProvincia("Verbano Cusio Ossola");
+                   } else if (comune.getProvincia().equals("Sassari")) {
+                       comune.setCodiceComune(String.valueOf(codiceProgressivo));
+                       codiceProgressivo++;
                    }
                 }
                 for (Comune comune : comuni) {

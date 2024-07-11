@@ -1,7 +1,9 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.security;
 
 
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Cliente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.ClienteService;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.UtenteService;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.UnauthorizedException;
 import jakarta.servlet.FilterChain;
@@ -24,6 +26,8 @@ public class  JWTAuthFilter extends OncePerRequestFilter {
     private JWTTools jwtTools;
     @Autowired
     private UtenteService utenteService;
+    @Autowired
+    private ClienteService clienteService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -40,6 +44,7 @@ public class  JWTAuthFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         filterChain.doFilter(request, response);
     }
+
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {

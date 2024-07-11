@@ -10,29 +10,24 @@ import java.time.LocalDate;
 
 public record ClientePayload(
         @NotEmpty(message = "Il campo Ragione Sociale è obbligatorio!")
-        @Size(min = 3, max = 10, message = "Ragione Sociale deve essere compreso fra 3 e 10 caratteri ")
+//        @Size(min = 3, max = 10, message = "Ragione Sociale deve essere compreso fra 3 e 10 caratteri ")
         String ragioneSociale,
 
         @NotNull(message = "Il campo Partita Iva è obbligatorio")
-        @Max(value = 11, message = "Il campo Partita Iva deve avere massimo 11 numeri.")
-        Integer partitaIva,
+//        @Max(value = 11, message = "Il campo Partita Iva deve avere massimo 11 numeri.")
+        int partitaIva,
 
 
-        @NotEmpty(message = "Il campo Email è obbligatorio!")
-        @Email(message = "Formato email non valido")
-        String email,
 
         @NotEmpty(message = "Il campo Pec è obbligatorio!")
         @Email(message = "Formato pec non valido")
         String pec,
 
-        @NotEmpty(message = "Il campo Password è obbligatorio!")
-        @Size(min = 5, max = 15, message = "La password deve essere compresa tra 5 e 15 caratteri")
-        String password,
+
 
         @NotNull(message = "Il campo Telefono è obbligatorio")
-        @Max(value = 10, message = "Il campo Telefono deve avere massimo 10 numeri.")
-        Integer telefono,
+//        @Max(value = 10, message = "Il campo Telefono deve avere massimo 10 numeri.")
+       String telefono,
 
         @NotEmpty(message = "Il campo Nome Contatto è obbligatorio!")
         @Size(min = 3, max = 10, message = "Nome Contatto deve essere compreso fra 3 e 10 caratteri ")
@@ -42,35 +37,10 @@ public record ClientePayload(
         @Size(min = 3, max = 10, message = "Cognome Contatto deve essere compreso fra 3 e 10 caratteri ")
         String cognomeContatto,
 
-        @NotEmpty(message = "Il campo Email Contatto è obbligatorio!")
-        @Email(message = "Formato email contatto non valido")
-        String emailContatto,
-
-        @NotEmpty(message = "Il via SedeLegale  è obbligatorio!")
-        String viaSedeLegale,
-        @NotNull (message = "Il campo numero civico sede legale è obbligatorio")
-int numeroCivicoSedeLegale,
-        @NotNull(message = "Il campo CAP è obbligatorio")
-        int capSedeLegale,
-        @NotEmpty(message = "Il Comune  è obbligatorio!")
-       String comuneSedeLegale,
-        @NotEmpty(message = "Il Provincia  è obbligatorio!")
-        String provinciaSedeLegale,
-        String viaSedeOperativa,
-        int numeroCivicoSedeOperativa,
-        int capSedeOperativa,
-        String comuneSedeOperativa,
-        String provinciaSedeOperativa,
-        // questi sono facoltativi quindi niente annotazioni
-        @NotNull(message = "Il campo Data Inserimento è obbligatorio")
-        LocalDate dataInserimento,
-
-        @NotNull(message = "Il campo Data Ultimo Contatto è obbligatorio")
-        LocalDate dataUltimoContatto,
 
         @NotNull(message = "Il campo Telefono Contatto è obbligatorio")
-        @Max(value = 20, message = "Il campo Telefono Contatto deve avere massimo 20 numeri.")
-        Integer telefonoContatto
+//        @Max(value = 20, message = "Il campo Telefono Contatto deve avere massimo 20 numeri.")
+        String telefonoContatto
 
 ) {
 }

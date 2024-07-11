@@ -1,5 +1,6 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.security;
 
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Cliente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.UnauthorizedException;
 import io.jsonwebtoken.Jwts;
@@ -23,6 +24,7 @@ public class JWTTools {///3
                 .signWith(Keys.hmacShaKeyFor(secret.getBytes()))
                 .compact();
     }
+
 
     public void verifyToken(String token){
         try{Jwts.parser().verifyWith(Keys.hmacShaKeyFor(secret.getBytes())).build().parse(token);

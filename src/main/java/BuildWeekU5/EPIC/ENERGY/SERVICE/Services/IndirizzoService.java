@@ -3,6 +3,7 @@ package BuildWeekU5.EPIC.ENERGY.SERVICE.Services;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Comune;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Fatture;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Indirizzo;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Provincia;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.ComuneRepository;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.IndirizzoRepository;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.NotFoundException;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -19,24 +21,19 @@ public class IndirizzoService {
     @Autowired
     private IndirizzoRepository indirizzoRepository;
 
-    @Autowired
-    private ComuneRepository comuneRepository;
+@Autowired
+private ComuneService comuneService;
+@Autowired
+private ProvincieService provincieService;
 
-    public Indirizzo saveFromPostman(IndirizzoPayload body) throws IOException {
+    public Indirizzo save(IndirizzoPayload body) throws IOException {
         Indirizzo indirizzo = new Indirizzo();
         indirizzo.setVia(body.via());
         indirizzo.setCivico(body.civico());
         indirizzo.setCap(body.cap());
-
-
-        UUID comuneId = UUID.fromString(body.comuneId());
-        Comune comune = comuneRepository.findById(comuneId)
-                .orElseThrow(() -> new IOException("id del comune non trovato " + body.comuneId()));
-        indirizzo.setComune(comune);
-
-        return indirizzoRepository.save(indirizzo);
-    }
-    public Indirizzo save(Indirizzo indirizzo){
+        Provincia provinciafound = provincieService.findByName(body.provincia());
+        List<Comune> comunes =  comuneService.findByNameAndProvincia(body.comune(), provinciafound);
+        indirizzo.setComune(comunes.getFirst());
         return indirizzoRepository.save(indirizzo);
     }
     public Indirizzo findById(Long id) {
