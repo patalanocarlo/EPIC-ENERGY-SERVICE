@@ -71,7 +71,7 @@ private ClienteService clienteService;
    @PreAuthorize("hasAuthority('CLIENTE')")
    public Fatture createFattura( @RequestBody FatturePayload fatturePayload, @AuthenticationPrincipal Utente cliente) throws IOException {
        Cliente clienteFound = clienteService.findByEmail(cliente.getEmail());
-       return this.fattureService.save(fatturePayload, clienteFound);
+       return fattureService.save(fatturePayload, clienteFound);
    }
 }
 

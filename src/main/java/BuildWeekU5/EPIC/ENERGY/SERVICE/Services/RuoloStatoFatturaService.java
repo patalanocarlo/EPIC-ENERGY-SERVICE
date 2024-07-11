@@ -23,7 +23,7 @@ public class RuoloStatoFatturaService {
         ruoloStatoFattura.setNome(ruoloStatoFatturaPayload.nome());
         return ruoloStatoFatturaidRepository.save(ruoloStatoFattura);
     }
-    public RuoloStatoFattura findStatoFatturaById(Long id){
+    public RuoloStatoFattura findStatoFatturaById(int id){
         return ruoloStatoFatturaidRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Stato della fattura non trovato"));
     }

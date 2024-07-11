@@ -15,8 +15,7 @@ public record FatturePayload(
         @NotNull(message = "Campo obbligatorio")
         @Min(value = 0, message = "L'Importo deve essere maggiore di zero per essere valido")
         double Importo,
-
         @NotNull(message = "Campo obbligatorio")
-        Long  idFattura
+        int  idFattura
 
 ) {}

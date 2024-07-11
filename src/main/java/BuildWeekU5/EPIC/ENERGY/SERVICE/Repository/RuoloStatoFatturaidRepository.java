@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface RuoloStatoFatturaidRepository extends JpaRepository<RuoloStatoFattura, Long> {
+public interface RuoloStatoFatturaidRepository extends JpaRepository<RuoloStatoFattura, Integer> {
 
 
 }

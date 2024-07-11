@@ -4,10 +4,7 @@ import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Cliente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Fatture;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.RuoloStatoFattura;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente;
-import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.ClienteRepository;
-import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.FattureRepository;
-import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.RuoloStatoRepository;
-import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.UtenteRepository;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.*;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.NotFoundException;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.FatturePayload;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.UtentePayload;
@@ -39,6 +36,8 @@ public class FattureService {
 private ClienteRepository clienteRepository;
     @Autowired
     private UtenteService utenteService;
+    @Autowired
+    private RuoloStatoFatturaidRepository ruoloStatoFatturaidRepository;
 
     public Fatture save(FatturePayload body, Cliente cliente) throws IOException {
         Cliente found = clienteService.findById(cliente.getId());
@@ -50,14 +49,13 @@ private ClienteRepository clienteRepository;
         fatture.setDataFattura(body.DataFattura());
         fatture.setImporto(body.Importo());
 
-
         RuoloStatoFattura ruoloStatoFattura = ruoloStatoFatturaService.findStatoFatturaById(body.idFattura());
         if (ruoloStatoFattura == null) {
             throw new NotFoundException("RuoloStatoFattura non trovato con id: " + body.idFattura());
         }
         fatture.setRuoloStatoFattura(ruoloStatoFattura);
-
         fatture.setCliente(found);
+        fatture.setNumeroFattura(fatture.getNumeroFattura());
         List<Fatture> modificaFatture = found.getFattures();
         if (modificaFatture == null) {
             modificaFatture = new ArrayList<>();
@@ -69,7 +67,7 @@ private ClienteRepository clienteRepository;
                 .mapToDouble(Fatture::getImporto)
                 .sum();
         found.setFatturatoAnnuale((int) fatturatoAnnuale);
-
+ruoloStatoFatturaidRepository.save(ruoloStatoFattura);
         clienteRepository.save(found);
         return fattureRepository.save(fatture);
     }
