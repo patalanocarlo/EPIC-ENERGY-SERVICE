@@ -39,24 +39,24 @@ public class ClienteService {
     private PasswordEncoder passwordEncoder;
 
 
-    public Cliente save(ClientePayload body) throws IOException {
+    public Cliente save(ClientePayload body, Utente utente) throws IOException {
 
         Cliente cliente = new Cliente();
         cliente.setRagioneSociale(body.ragioneSociale());
         cliente.setPartitaIva(body.partitaIva());
-        cliente.setEmail(body.email());
+        cliente.setEmail(utente.getEmail());
         cliente.setPec(body.pec());
         cliente.setTelefono(body.telefono());
         cliente.setNomeContatto(body.nomeContatto());
         cliente.setCognomeContatto(body.cognomeContatto());
-        cliente.setEmailContatto(body.emailContatto());
+        cliente.setEmailContatto(utente.getEmail());
         cliente.setTelefonoContatto(body.telefonoContatto());
         cliente.setDataInserimento(LocalDate.now());
         cliente.setDataUltimoContatto(LocalDate.now());
-        // da chiedere a riccardo
+
         cliente.setFatturatoAnnuale(0);
         cliente.setLogoAziendale("http://logoprova.it");
-        cliente.setPassword(passwordEncoder.encode(body.password()));
+
         return clienteRepository.save(cliente);
     }
 

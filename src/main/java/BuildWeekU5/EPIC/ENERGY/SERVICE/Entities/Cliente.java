@@ -17,7 +17,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 
-@JsonIgnoreProperties({"password"})
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +34,7 @@ public class Cliente {
     private String CognomeContatto;
     private String TelefonoContatto;
     private String LogoAziendale;
-    private String password;
+
 
     @OneToMany
     private List<Fatture> fattures;

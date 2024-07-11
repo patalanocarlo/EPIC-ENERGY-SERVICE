@@ -3,9 +3,14 @@ package BuildWeekU5.EPIC.ENERGY.SERVICE.controllers;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Cliente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.ClienteService;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.BadRequestException;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.ClientePayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,5 +41,15 @@ public class ClienteController {
     @GetMapping("/orderByFatturatoAnnuale")
     public List<Cliente> getAllByOrderByFatturatoAnnuale() {
         return clienteService.getAllByOrderByFatturatoAnnuale();
+    }
+
+    @PostMapping("/registration/cliente")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('CLIENTE')")
+    public Cliente createCliente(@RequestBody @Validated ClientePayload clientePayload, BindingResult validation, @AuthenticationPrincipal Utente cliente) throws IOException {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        }
+        return clienteService.save(clientePayload, cliente);
     }
 }

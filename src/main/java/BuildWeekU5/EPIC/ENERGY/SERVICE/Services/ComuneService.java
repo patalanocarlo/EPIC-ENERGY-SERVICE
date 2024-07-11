@@ -76,7 +76,7 @@ public class ComuneService {
                         .withSkipLines(1)
                         .build()
                         .parse();
-                int codiceProgressivo = 0;
+                int codiceProgressivo = 1;
                 for (Comune comune : comuni) {
                    if (Objects.equals(comune.getProvincia(), "Valle d'Aosta/Vallée d'Aoste")) {
                         comune.setProvincia("Aosta");} else if (Objects.equals(comune.getProvincia(), "Bolzano/Bozen")) {

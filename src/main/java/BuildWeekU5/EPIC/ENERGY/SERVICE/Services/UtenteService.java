@@ -5,6 +5,7 @@ import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente_Ruolo;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.UtenteRepository;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.Utente_RuoloRepository;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.BadRequestException;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.NotFoundException;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.UtentePayload;
 import com.cloudinary.Cloudinary;
@@ -37,6 +38,12 @@ public class UtenteService {
     private Cloudinary cloudinaryUploader;
 
     public Utente save(UtentePayload body) throws IOException {
+        utenteRepository.findByEmail(body.email()).ifPresent(
+                // 1.1 Se lo è triggero un errore
+                user -> {
+                    throw new BadRequestException("L'email " + body.email() + " è già in uso!");
+                }
+        );
         Utente utente = new Utente();
         utente.setUserName(body.userName());
         utente.setEmail(body.email());
@@ -44,12 +51,11 @@ public class UtenteService {
         utente.setNome(body.nome());
         utente.setCognome(body.cognome());
         utente.setAvatar("http://logoprova.it");
-        Utente_Ruolo utenteRuolo=new Utente_Ruolo("User");
-        utente_ruoloRepository.save(utenteRuolo);
 
-        utente.setUtenteRuolo(utenteRuolo);
-        return utenteRepository.save(utente);
-
+        Utente_Ruolo utenteRuolo= new Utente_Ruolo("USER");
+        utenteRuoloService.CreaRuoloUtente(utenteRuolo);
+       utente.setUtenteRuolo(utenteRuolo);
+       return  utenteRepository.save(utente);
     }
 
     public Utente findById(Long id) {

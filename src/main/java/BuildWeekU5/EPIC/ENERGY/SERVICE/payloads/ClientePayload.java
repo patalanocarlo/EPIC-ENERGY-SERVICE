@@ -15,17 +15,13 @@ public record ClientePayload(
 //        @Max(value = 11, message = "Il campo Partita Iva deve avere massimo 11 numeri.")
         int partitaIva,
 
-        @NotEmpty(message = "Il campo Email è obbligatorio!")
-        @Email(message = "Formato email non valido")
-        String email,
+
 
         @NotEmpty(message = "Il campo Pec è obbligatorio!")
         @Email(message = "Formato pec non valido")
         String pec,
 
-        @NotEmpty(message = "Il campo Password è obbligatorio!")
-        @Size(min = 5, max = 15, message = "La password deve essere compresa tra 5 e 15 caratteri")
-        String password,
+
 
         @NotNull(message = "Il campo Telefono è obbligatorio")
 //        @Max(value = 10, message = "Il campo Telefono deve avere massimo 10 numeri.")
@@ -39,9 +35,6 @@ public record ClientePayload(
         @Size(min = 3, max = 10, message = "Cognome Contatto deve essere compreso fra 3 e 10 caratteri ")
         String cognomeContatto,
 
-        @NotEmpty(message = "Il campo Email Contatto è obbligatorio!")
-        @Email(message = "Formato email contatto non valido")
-        String emailContatto,
 
 
         @NotNull(message = "Il campo Telefono Contatto è obbligatorio")
