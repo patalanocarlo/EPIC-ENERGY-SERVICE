@@ -5,6 +5,7 @@ import com.opencsv.bean.CsvBindByPosition;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,15 +31,18 @@ public class Comune {
     private String codiceComune;
     @NotNull
     @CsvBindByPosition(position = 2)
-    private String Denominazione;
+    private String name;
     @NotNull
     @CsvBindByPosition(position = 3)
     private String provincia;
+    @ManyToOne
+    private Provincia provinciaList;
+
 
     public Comune(String codiceProvincia, String codiceComune, String denominazione, String provincia) {
        this.codiceProvincia = codiceProvincia;
         this.codiceComune = codiceComune;
-        Denominazione = denominazione;
+        this.name = denominazione;
         this.provincia = provincia;
     }
 }

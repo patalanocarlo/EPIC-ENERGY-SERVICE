@@ -1,6 +1,7 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.Entities;
 
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 import lombok.Getter;
@@ -25,11 +26,11 @@ public class Cliente {
     private String email;
     private LocalDate dataInserimento;
     private LocalDate dataUltimoContatto;
-    private int FatturatoAnnuale;
+    private int fatturatoAnnuale;
     private String pec;
     private int telefono;
     private String emailContatto;
-    private String NomeContatto;
+    private String nomeContatto;
     private String CognomeContatto;
     private int TelefonoContatto;
     private String LogoAziendale;
