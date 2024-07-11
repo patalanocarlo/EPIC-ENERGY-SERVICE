@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -118,6 +115,16 @@ comune.setProvincia("Bolzano");
   public List<Comune> findByNameAndProvincia(String name, Provincia provincia){
         List<Comune> comuneList = new ArrayList<>(comuneRepository.findByNameAndProvincia(name, provincia.getName()));
        return comuneList;
+    }
+
+
+    public List<Comune> findByProvinciaId(UUID provinciaId){
+        Optional<Provincia> provincia = provinciaRepository.findById(provinciaId);
+        if (provincia.isPresent()) {
+            return comuneRepository.findByProvincia(provincia.get().getName());
+        } else {
+            throw new NotFoundException("Provincia non trovata");
+        }
     }
 }
 
