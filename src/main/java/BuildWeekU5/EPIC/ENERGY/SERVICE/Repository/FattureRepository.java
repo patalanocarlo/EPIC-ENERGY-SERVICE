@@ -22,4 +22,5 @@ public interface FattureRepository extends JpaRepository<Fatture, Long> {
 
     @Query("SELECT f FROM Fatture f WHERE f.Importo = :importo")
     List<Fatture> findByImporto(@Param("importo") double Importo);
+
 }

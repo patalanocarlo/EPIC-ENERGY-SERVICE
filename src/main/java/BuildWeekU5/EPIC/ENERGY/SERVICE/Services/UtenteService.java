@@ -39,7 +39,7 @@ public class UtenteService {
 
     public Utente save(UtentePayload body) throws IOException {
         utenteRepository.findByEmail(body.email()).ifPresent(
-                // 1.1 Se lo è triggero un errore
+
                 user -> {
                     throw new BadRequestException("L'email " + body.email() + " è già in uso!");
                 }

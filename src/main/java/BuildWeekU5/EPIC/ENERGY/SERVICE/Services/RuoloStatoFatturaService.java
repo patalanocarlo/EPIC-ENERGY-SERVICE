@@ -32,4 +32,5 @@ public class RuoloStatoFatturaService {
         Pageable pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
         return ruoloStatoFatturaidRepository.findAll(pageable);
     }
+
 }

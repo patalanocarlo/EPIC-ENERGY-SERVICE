@@ -31,8 +31,8 @@ import java.util.List;
 public class FattureService {
     @Autowired
     private FattureRepository fattureRepository;
-    @Autowired
-    private RuoloStatoRepository ruoloStatoFatturaRepository;
+   @Autowired
+   private RuoloStatoFatturaService ruoloStatoFatturaService;
     @Autowired
     private ClienteService clienteService;
     @Autowired
@@ -40,22 +40,20 @@ public class FattureService {
     @Autowired
     private UtenteService utenteService;
 
-    /*public Fatture save(FatturePayload body, Utente cliente) throws IOException {
+    public Fatture save(FatturePayload body, Cliente cliente) throws IOException {
         Cliente found = clienteService.findById(cliente.getId());
         Fatture fatture = new Fatture();
         fatture.setDataFattura(body.DataFattura());
         fatture.setImporto(body.Importo());
-        RuoloStatoFattura ruoloStatoFattura = ruoloStatoFatturaRepository.findById(body.ruoloStatoFatturaId())
-                .orElseThrow(() -> new IOException("Stato fattura non trovata con id: " + body.ruoloStatoFatturaId()));
+        RuoloStatoFattura ruoloStatoFattura = ruoloStatoFatturaService.findStatoFatturaById(body.idFattura());
         fatture.setRuoloStatoFattura(ruoloStatoFattura);
-
-        clienteService.uploadFatture(fatture, found );
+        clienteService.uploadFatture(fatture, found);
         Fatture savedFatture = fattureRepository.save(fatture);
-        updateFatturatoAnnuale(cliente.getId());
+        updateFatturatoAnnuale(found.getId());
 
         return savedFatture;
 
-    }*/
+    }
     public Fatture findById(Long id) {
         return fattureRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }

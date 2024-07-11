@@ -3,6 +3,7 @@ package BuildWeekU5.EPIC.ENERGY.SERVICE.controllers;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Cliente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Fatture;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.ClienteService;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.FattureService;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.UtenteService;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.FatturePayload;
@@ -24,7 +25,8 @@ import java.util.List;
 public class FatturaController {
     @Autowired
     private FattureService fattureService;
-
+@Autowired
+private ClienteService clienteService;
     @GetMapping
     public Page<Fatture> getAllFatture(@RequestParam(defaultValue = "0") int page,
                                        @RequestParam(defaultValue = "5") int size,
@@ -64,13 +66,14 @@ public class FatturaController {
     public List<Fatture> getFattureByImporto(@RequestParam double importo) {
         return fattureService.getFattureByImporto(importo);
     }
+   @PostMapping("/create")
+   @ResponseStatus(HttpStatus.CREATED)
+   @PreAuthorize("hasAuthority('CLIENTE')")
+   public Fatture createFattura( @RequestBody FatturePayload fatturePayload, @AuthenticationPrincipal Utente cliente) throws IOException {
+       Cliente clienteFound = clienteService.findByEmail(cliente.getEmail());
+       return this.fattureService.save(fatturePayload, clienteFound);
+   }
 }
 
-//    @PostMapping("/create")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    @PreAuthorize("hasAuthority('CLIENTE')")
-//    public Fatture createFattura( @RequestBody FatturePayload fatturePayload, @AuthenticationPrincipal Utente cliente) throws IOException {
-//        return this.fattureService.save(fatturePayload);
-//    }
-//}
+
 
