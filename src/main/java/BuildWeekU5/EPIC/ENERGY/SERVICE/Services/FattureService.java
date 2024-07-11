@@ -35,24 +35,34 @@ public class FattureService {
    private RuoloStatoFatturaService ruoloStatoFatturaService;
     @Autowired
     private ClienteService clienteService;
-    @Autowired
-    private ClienteRepository clienteRepository;
+@Autowired
+private ClienteRepository clienteRepository;
     @Autowired
     private UtenteService utenteService;
 
     public Fatture save(FatturePayload body, Cliente cliente) throws IOException {
         Cliente found = clienteService.findById(cliente.getId());
+
         Fatture fatture = new Fatture();
         fatture.setDataFattura(body.DataFattura());
         fatture.setImporto(body.Importo());
+        fatture.setCliente(found);
         RuoloStatoFattura ruoloStatoFattura = ruoloStatoFatturaService.findStatoFatturaById(body.idFattura());
         fatture.setRuoloStatoFattura(ruoloStatoFattura);
-        clienteService.uploadFatture(fatture, found);
-        Fatture savedFatture = fattureRepository.save(fatture);
-        updateFatturatoAnnuale(found.getId());
-
-        return savedFatture;
-
+      // clienteService.uploadFatture(fatture, found);
+//        List<Fatture> modificaFatture = cliente.getFattures();
+//        if (modificaFatture == null) {
+//           modificaFatture = new ArrayList<>();
+//       }
+//
+//        modificaFatture.add(fatture);
+//        found.setFattures(modificaFatture);
+//      double fatturatoAnnuale = modificaFatture.stream()
+//               .mapToDouble(Fatture::getImporto)
+//                .sum();
+//        found.setFatturatoAnnuale((int) fatturatoAnnuale);
+//       clienteRepository.save(found);
+        return fattureRepository.save(fatture);
     }
     public Fatture findById(Long id) {
         return fattureRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
@@ -68,16 +78,16 @@ public class FattureService {
         return fattureRepository.findAll(pageable);
     }
 
-    private void updateFatturatoAnnuale(Long clienteId) {
-        Cliente cliente = clienteRepository.findById(clienteId)
-                .orElseThrow(() -> new NotFoundException("Cliente non trovato con id: " + clienteId));
-        double fatturatoAnnuale = fattureRepository.findByClienteId(clienteId)
-                .stream()
-                .mapToDouble(Fatture::getImporto)
-                .sum();
-        cliente.setFatturatoAnnuale((int) fatturatoAnnuale);
-        clienteRepository.save(cliente);
-    }
+//    private void updateFatturatoAnnuale(Long clienteId) {
+//        Cliente cliente = clienteRepository.findById(clienteId)
+//                .orElseThrow(() -> new NotFoundException("Cliente non trovato con id: " + clienteId));
+//        double fatturatoAnnuale = fattureRepository.findByClienteId(clienteId)
+//                .stream()
+//                .mapToDouble(Fatture::getImporto)
+//                .sum();
+//        cliente.setFatturatoAnnuale((int) fatturatoAnnuale);
+//        clienteRepository.save(cliente);
+//    }
 
     public List<Fatture> findByClienteId(Long clienteId) {
         return fattureRepository.findByClienteId(clienteId);
@@ -94,8 +104,8 @@ public class FattureService {
         return fattureRepository.findByAnno(anno);
     }
 
-    @GetMapping("/importo")
-    public List<Fatture> getFattureByImporto(@RequestParam double Importo) {
+
+    public List<Fatture> getFattureByImporto( double Importo) {
         return fattureRepository.findByImporto(Importo);
     }
     }

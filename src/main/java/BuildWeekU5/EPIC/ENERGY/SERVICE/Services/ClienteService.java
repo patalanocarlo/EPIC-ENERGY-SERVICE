@@ -36,6 +36,7 @@ public class ClienteService {
     private PasswordEncoder passwordEncoder;
 
 
+
     public Cliente save(ClientePayload body, Utente utente) throws IOException {
 
         Cliente cliente = new Cliente();
@@ -116,12 +117,7 @@ public class ClienteService {
     public Cliente findByEmail(String email) {
         return clienteRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Cliente con email " + email + " non trovato!!"));
     }
-    public Cliente uploadFatture(Fatture fatture, Cliente cliente){
-        Cliente found = this.findById(cliente.getId());
-        List<Fatture> modificaFatture = new ArrayList<>(found.getFattures());
-        modificaFatture.add(fatture);
-        return clienteRepository.save(found);
-    }
+
 }
 
 
