@@ -43,7 +43,7 @@ public class ClienteController {
         Cliente clienteFound = clienteService.findByEmail(cliente.getEmail());
         return this.clienteService.uploadAvatar(clienteFound.getId(), image);
     }
- 
+
 
     @GetMapping("/orderByNome")
     public List<Cliente> getAllByOrderByNome() {

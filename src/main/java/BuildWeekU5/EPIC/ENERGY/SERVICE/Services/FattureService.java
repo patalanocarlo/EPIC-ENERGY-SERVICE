@@ -77,6 +77,8 @@ private ClienteRepository clienteRepository;
 
     public void findByIdAndDelete(Long id) {
         Fatture found = this.findById(id);
+        Cliente clienti = found.getCliente();
+       clienti.getFattures().remove(found);
         fattureRepository.delete(found);
     }
     public Page<Fatture> getAllFatture(int pageNumber, int pageSize, String sortBy) {

@@ -7,6 +7,7 @@ import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.ClienteService;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.FattureService;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.UtenteService;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.FatturePayload;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.FattureResercePayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -34,15 +35,16 @@ private ClienteService clienteService;
         return this.fattureService.getAllFatture(page, size, sortBy);
     }
 
-    @GetMapping("/{fatturaId}")
-    public Fatture findById(@PathVariable Long fatturaId) {
-        return this.fattureService.findById(fatturaId);
+    @GetMapping("/me")
+    public Fatture findById(@AuthenticationPrincipal Utente cliente, @RequestBody FattureResercePayload fatturaId) {
+
+        return this.fattureService.findById(fatturaId.idFattura());
     }
-//da modificare
-    @DeleteMapping("/{fatturaId}")
+
+    @DeleteMapping("/me")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteFattura(@PathVariable Long fatturaId) {
-        this.fattureService.findByIdAndDelete(fatturaId);
+    public void deleteFattura(@AuthenticationPrincipal Utente cliente, @RequestBody FattureResercePayload fatturaId) {
+        this.fattureService.findByIdAndDelete(fatturaId.idFattura());
     }
     // da modificare
     @GetMapping("/cliente/{clienteId}")
