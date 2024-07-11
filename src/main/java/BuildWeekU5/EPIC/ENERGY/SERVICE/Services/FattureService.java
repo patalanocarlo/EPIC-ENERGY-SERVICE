@@ -87,16 +87,6 @@ private ClienteRepository clienteRepository;
         return fattureRepository.findAll(pageable);
     }
 
-//    private void updateFatturatoAnnuale(Long clienteId) {
-//        Cliente cliente = clienteRepository.findById(clienteId)
-//                .orElseThrow(() -> new NotFoundException("Cliente non trovato con id: " + clienteId));
-//        double fatturatoAnnuale = fattureRepository.findByClienteId(clienteId)
-//                .stream()
-//                .mapToDouble(Fatture::getImporto)
-//                .sum();
-//        cliente.setFatturatoAnnuale((int) fatturatoAnnuale);
-//        clienteRepository.save(cliente);
-//    }
 
     public List<Fatture> findByClienteId(Long clienteId) {
         return fattureRepository.findByClienteId(clienteId);

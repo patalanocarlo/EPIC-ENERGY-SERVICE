@@ -41,9 +41,9 @@ public class UtenteController {
 
     }
 
-    @PostMapping("/{utenteId}/avatar")
-    public Utente uploadAvatar(@RequestParam("avatar") MultipartFile image, @PathVariable Long utenteId) throws IOException {
-        return this.utenteService.uploadAvatar(utenteId, image);
+    @PostMapping("/me/avatar")
+    public Utente uploadAvatar(@RequestParam("avatar") MultipartFile image, @AuthenticationPrincipal Utente utenteId) throws IOException {
+        return this.utenteService.uploadAvatar(utenteId.getId(), image);
     }
-    // da modificare
+
 }

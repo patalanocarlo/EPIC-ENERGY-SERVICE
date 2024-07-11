@@ -46,7 +46,7 @@ private ClienteService clienteService;
     public void deleteFattura(@AuthenticationPrincipal Utente cliente, @RequestBody FattureResercePayload fatturaId) {
         this.fattureService.findByIdAndDelete(fatturaId.idFattura());
     }
-    // da modificare
+
     @GetMapping("/cliente/{clienteId}")
     public List<Fatture> getFattureByClienteId(@PathVariable Long clienteId) {
         return fattureService.findByClienteId(clienteId);
