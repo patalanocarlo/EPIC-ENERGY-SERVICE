@@ -13,6 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 
 @RestController
@@ -44,4 +45,13 @@ public class FatturaController {
     public Fatture createFattura( @RequestBody FatturePayload fatturePayload) throws IOException {
         return this.fattureService.save(fatturePayload);
     }
+    @GetMapping("/cliente/{clienteId}")
+    public List<Fatture> getFattureByClienteId(@PathVariable Long clienteId) {
+        return fattureService.findByClienteId(clienteId);
+    }
+    @GetMapping("/stato/{statoId}")
+    public List<Fatture> getFattureByStatoFatturaId(@PathVariable Long statoId) {
+        return fattureService.findByStatoFatturaId(statoId);
+    }
+
 }

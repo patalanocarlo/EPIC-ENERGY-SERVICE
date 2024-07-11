@@ -20,6 +20,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
 
 
 @Service
@@ -74,6 +76,14 @@ public class FattureService {
                 .sum();
         cliente.setFatturatoAnnuale((int) fatturatoAnnuale);
         clienteRepository.save(cliente);
+    }
+
+    public List<Fatture> findByClienteId(Long clienteId) {
+        return fattureRepository.findByClienteId(clienteId);
+    }
+
+    public List<Fatture> findByStatoFatturaId(Long statoId) {
+        return fattureRepository.findByRuoloStatoFatturaId(statoId);
     }
     }
 
