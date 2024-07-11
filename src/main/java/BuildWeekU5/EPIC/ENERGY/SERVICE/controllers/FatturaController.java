@@ -8,11 +8,13 @@ import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.UtenteService;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.FatturePayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -53,5 +55,18 @@ public class FatturaController {
     public List<Fatture> getFattureByStatoFatturaId(@PathVariable Long statoId) {
         return fattureService.findByStatoFatturaId(statoId);
     }
+    @GetMapping("/data")
+    public List<Fatture> getFattureByDataFattura(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataFattura) {
+        return fattureService.findByDataFattura(dataFattura);
+    }
 
+    @GetMapping("/anno")
+    public List<Fatture> getFattureByAnno(@RequestParam int anno) {
+        return fattureService.findByAnno(anno);
+    }
+
+    @GetMapping("/importo")
+    public List<Fatture> getFattureByImporto(@RequestParam double importo) {
+        return fattureService.getFattureByImporto(importo);
+    }
 }

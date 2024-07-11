@@ -18,6 +18,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -84,6 +86,18 @@ public class FattureService {
 
     public List<Fatture> findByStatoFatturaId(Long statoId) {
         return fattureRepository.findByRuoloStatoFatturaId(statoId);
+    }
+    public List<Fatture> findByDataFattura(LocalDate dataFattura) {
+        return fattureRepository.findByDataFattura(dataFattura);
+    }
+
+    public List<Fatture> findByAnno(int anno) {
+        return fattureRepository.findByAnno(anno);
+    }
+
+    @GetMapping("/importo")
+    public List<Fatture> getFattureByImporto(@RequestParam double Importo) {
+        return fattureRepository.findByImporto(Importo);
     }
     }
 

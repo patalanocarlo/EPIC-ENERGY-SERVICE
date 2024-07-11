@@ -14,5 +14,12 @@ import java.util.List;
 public interface FattureRepository extends JpaRepository<Fatture, Long> {
     List<Fatture> findByClienteId(Long clienteId);
     List<Fatture> findByRuoloStatoFatturaId(Long statoId);
+    @Query("SELECT f FROM Fatture f WHERE f.DataFattura = :dataFattura")
+    List<Fatture> findByDataFattura(LocalDate dataFattura);
 
+    @Query("SELECT f FROM Fatture f WHERE YEAR(f.DataFattura) = :anno")
+    List<Fatture> findByAnno(int anno);
+
+    @Query("SELECT f FROM Fatture f WHERE f.Importo = :importo")
+    List<Fatture> findByImporto(@Param("importo") double Importo);
 }
