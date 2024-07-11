@@ -22,11 +22,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
-<<<<<<< Updated upstream
 import java.time.LocalDate;
-=======
 import java.util.ArrayList;
->>>>>>> Stashed changes
 import java.util.List;
 
 
@@ -43,7 +40,7 @@ public class FattureService {
     @Autowired
     private UtenteService utenteService;
 
-    public Fatture save(FatturePayload body, Utente cliente) throws IOException {
+    /*public Fatture save(FatturePayload body, Utente cliente) throws IOException {
         Cliente found = clienteService.findById(cliente.getId());
         Fatture fatture = new Fatture();
         fatture.setDataFattura(body.DataFattura());
@@ -58,7 +55,7 @@ public class FattureService {
 
         return savedFatture;
 
-    }
+    }*/
     public Fatture findById(Long id) {
         return fattureRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }

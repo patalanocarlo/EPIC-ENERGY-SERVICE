@@ -111,20 +111,20 @@ public class ClienteService {
         Cliente found = this.findById(cliente.getId());
         found.setSedeOperativa(indirizzo);
         return clienteRepository.save(found);
-<<<<<<< Updated upstream
+
+    }
+    public Cliente findByEmail(String email) {
+        return clienteRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Cliente con email " + email + " non trovato!!"));
     }
 
-=======
 }
-public Cliente uploadFatture(Fatture fatture, Cliente cliente){
+/*public Cliente uploadFatture(Fatture fatture, Cliente cliente){
         Cliente found = this.findById(cliente.getId());
         List<Fatture> modificaFatture = new ArrayList<>(found.getFattures());
         modificaFatture.add(fatture);
         return clienteRepository.save(found);
 }
->>>>>>> Stashed changes
-    public Cliente findByEmail(String email) {
-        return clienteRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Cliente con email " + email + " non trovato!!"));
-    }
-}
+*/
+
+
 

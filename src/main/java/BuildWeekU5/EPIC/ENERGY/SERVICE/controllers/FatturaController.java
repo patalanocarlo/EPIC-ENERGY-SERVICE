@@ -42,13 +42,6 @@ public class FatturaController {
     public void deleteFattura(@PathVariable Long fatturaId) {
         this.fattureService.findByIdAndDelete(fatturaId);
     }
-<<<<<<< Updated upstream
-
-    @PostMapping("/create")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Fatture createFattura( @RequestBody FatturePayload fatturePayload) throws IOException {
-        return this.fattureService.save(fatturePayload);
-    }
     @GetMapping("/cliente/{clienteId}")
     public List<Fatture> getFattureByClienteId(@PathVariable Long clienteId) {
         return fattureService.findByClienteId(clienteId);
@@ -72,8 +65,7 @@ public class FatturaController {
         return fattureService.getFattureByImporto(importo);
     }
 }
-=======
-}
+
 //    @PostMapping("/create")
 //    @ResponseStatus(HttpStatus.CREATED)
 //    @PreAuthorize("hasAuthority('CLIENTE')")
@@ -81,4 +73,4 @@ public class FatturaController {
 //        return this.fattureService.save(fatturePayload);
 //    }
 //}
->>>>>>> Stashed changes
+
