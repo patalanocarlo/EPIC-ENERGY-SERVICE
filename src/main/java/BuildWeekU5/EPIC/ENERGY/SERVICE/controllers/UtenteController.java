@@ -45,4 +45,5 @@ public class UtenteController {
     public Utente uploadAvatar(@RequestParam("avatar") MultipartFile image, @PathVariable Long utenteId) throws IOException {
         return this.utenteService.uploadAvatar(utenteId, image);
     }
+    // da modificare
 }

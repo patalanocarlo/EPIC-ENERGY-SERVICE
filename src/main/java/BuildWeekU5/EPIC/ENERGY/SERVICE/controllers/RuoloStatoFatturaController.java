@@ -32,6 +32,7 @@ public class RuoloStatoFatturaController {
         return this.ruoloStatoFatturaService.getAllFatture(page, size, sortBy);
     }
 
+
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAuthority('ADMIN')")

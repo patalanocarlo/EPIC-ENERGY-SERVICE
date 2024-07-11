@@ -55,6 +55,7 @@ private ClienteRepository clienteRepository;
         }
         fatture.setRuoloStatoFattura(ruoloStatoFattura);
         fatture.setCliente(found);
+
         fatture.setNumeroFattura(fatture.getNumeroFattura());
         List<Fatture> modificaFatture = found.getFattures();
         if (modificaFatture == null) {
@@ -67,8 +68,7 @@ private ClienteRepository clienteRepository;
                 .mapToDouble(Fatture::getImporto)
                 .sum();
         found.setFatturatoAnnuale((int) fatturatoAnnuale);
-ruoloStatoFatturaidRepository.save(ruoloStatoFattura);
-        clienteRepository.save(found);
+
         return fattureRepository.save(fatture);
     }
     public Fatture findById(Long id) {

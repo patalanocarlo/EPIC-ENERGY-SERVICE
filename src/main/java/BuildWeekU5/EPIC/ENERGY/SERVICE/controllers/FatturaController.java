@@ -38,12 +38,13 @@ private ClienteService clienteService;
     public Fatture findById(@PathVariable Long fatturaId) {
         return this.fattureService.findById(fatturaId);
     }
-
+//da modificare
     @DeleteMapping("/{fatturaId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteFattura(@PathVariable Long fatturaId) {
         this.fattureService.findByIdAndDelete(fatturaId);
     }
+    // da modificare
     @GetMapping("/cliente/{clienteId}")
     public List<Fatture> getFattureByClienteId(@PathVariable Long clienteId) {
         return fattureService.findByClienteId(clienteId);

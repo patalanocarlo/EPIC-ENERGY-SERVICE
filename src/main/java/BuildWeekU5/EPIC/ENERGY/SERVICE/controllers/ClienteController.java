@@ -31,11 +31,7 @@ public class ClienteController {
         return clienteService.getAllByOrderByNomeContatto();
     }
 
-    @PostMapping("/create")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Cliente createCliente(@RequestBody ClientePayload clientePayload, @AuthenticationPrincipal Utente cliente) throws IOException {
-        return clienteService.save(clientePayload, cliente);
-    }
+
 
     @GetMapping("/{clienteId}")
     public Cliente findById(@PathVariable Long clienteId) {
@@ -46,6 +42,7 @@ public class ClienteController {
     public Cliente uploadAvatar(@RequestParam("avatar") MultipartFile image, @PathVariable Long clienteId) throws IOException {
         return this.clienteService.uploadAvatar(clienteId, image);
     }
+    //da modificare per autorizzazione
 
     @GetMapping("/orderByNome")
     public List<Cliente> getAllByOrderByNome() {

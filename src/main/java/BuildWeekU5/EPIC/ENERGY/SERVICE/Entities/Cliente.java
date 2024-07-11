@@ -1,6 +1,7 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -17,7 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
+
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,9 +39,17 @@ public class Cliente {
 
 
     @OneToMany
+    @JsonIgnore
     private List<Fatture> fattures;
     @OneToOne
 private Indirizzo sedeLegale;
     @OneToOne
 private Indirizzo sedeOperativa;
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "ragioneSociale='" + ragioneSociale + '\'' +
+                '}';
+    }
 }
