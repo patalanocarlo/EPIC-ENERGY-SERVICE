@@ -38,11 +38,12 @@ public class ClienteController {
         return clienteService.findById(clienteId);
     }
 
-    @PostMapping("/{clienteId}/avatar")
-    public Cliente uploadAvatar(@RequestParam("avatar") MultipartFile image, @PathVariable Long clienteId) throws IOException {
-        return this.clienteService.uploadAvatar(clienteId, image);
+    @PostMapping("/me/avatar")
+    public Cliente uploadAvatar(@RequestParam("avatar") MultipartFile image, @AuthenticationPrincipal Utente cliente) throws IOException {
+        Cliente clienteFound = clienteService.findByEmail(cliente.getEmail());
+        return this.clienteService.uploadAvatar(clienteFound.getId(), image);
     }
-    //da modificare per autorizzazione
+ 
 
     @GetMapping("/orderByNome")
     public List<Cliente> getAllByOrderByNome() {
