@@ -15,7 +15,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.IIOException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -23,35 +22,41 @@ import java.util.List;
 @RestController
 @RequestMapping("/clienti")
 public class ClienteController {
-@Autowired
+
+    @Autowired
     private ClienteService clienteService;
 
     @GetMapping
     public List<Cliente> getAllClients() {
         return clienteService.getAllByOrderByNomeContatto();
     }
-@PostMapping("/create")
+
+    @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
-    public Cliente createCliente(@RequestBody ClientePayload clientePayload) throws IOException {
-    return clienteService.save(clientePayload);
-}
-@GetMapping("/{clienteId}")
-    public Cliente findyById(@PathVariable Long clienteId){
-    return clienteService.findById(clienteId);
-}
+    public Cliente createCliente(@RequestBody ClientePayload clientePayload, @AuthenticationPrincipal Utente cliente) throws IOException {
+        return clienteService.save(clientePayload, cliente);
+    }
+
+    @GetMapping("/{clienteId}")
+    public Cliente findById(@PathVariable Long clienteId) {
+        return clienteService.findById(clienteId);
+    }
 
     @PostMapping("/{clienteId}/avatar")
     public Cliente uploadAvatar(@RequestParam("avatar") MultipartFile image, @PathVariable Long clienteId) throws IOException {
         return this.clienteService.uploadAvatar(clienteId, image);
     }
+
     @GetMapping("/orderByNome")
     public List<Cliente> getAllByOrderByNome() {
         return clienteService.getAllByOrderByNomeContatto();
     }
+
     @GetMapping("/orderByFatturatoAnnuale")
     public List<Cliente> getAllByOrderByFatturatoAnnuale() {
         return clienteService.getAllByOrderByFatturatoAnnuale();
     }
+
     @GetMapping("/orderByDataInserimento")
     public List<Cliente> getAllByOrderByDataInserimento() {
         return clienteService.getAllByOrderByDataInserimento();
@@ -61,6 +66,7 @@ public class ClienteController {
     public List<Cliente> getAllByOrderByDataUltimoContatto() {
         return clienteService.getAllByOrderByDataUltimoContatto();
     }
+
     @GetMapping("/filterByFatturatoAnnuale")
     public List<Cliente> filterByFatturatoAnnuale(@RequestParam int fatturatoAnnuale) {
         return clienteService.filterByFatturatoAnnuale(fatturatoAnnuale);
@@ -79,6 +85,7 @@ public class ClienteController {
     @GetMapping("/filterByNomeContatto")
     public List<Cliente> filterByNomeContatto(@RequestParam String nomeContatto) {
         return clienteService.filterByNomeContatto(nomeContatto);
+    }
 
     @PostMapping("/registration/cliente")
     @ResponseStatus(HttpStatus.CREATED)

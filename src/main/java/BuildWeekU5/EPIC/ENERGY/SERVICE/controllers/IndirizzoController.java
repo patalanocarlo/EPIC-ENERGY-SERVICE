@@ -30,11 +30,7 @@ public class IndirizzoController {
                                              @AuthenticationPrincipal Utente cliente) throws IOException {
 
         Cliente clienteFound = clienteService.findByEmail(cliente.getEmail());
-
-
         Indirizzo indirizzo = indirizzoService.save(body);
-
-
         return clienteService.uploadIndirizzoSedeLegale(indirizzo, clienteFound);
     }
 

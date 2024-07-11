@@ -98,17 +98,22 @@ public class ClienteService {
 
     public List<Cliente> filterByNomeContatto(String nomeContatto) {
         return clienteRepository.findByNomeContattoContainingIgnoreCase(nomeContatto);
-public Cliente uploadIndirizzoSedeLegale(Indirizzo indirizzo, Cliente cliente){
+    }
+
+    public Cliente uploadIndirizzoSedeLegale(Indirizzo indirizzo, Cliente cliente) {
         Cliente found = this.findById(cliente.getId());
         found.setSedeLegale(indirizzo);
         return clienteRepository.save(found);
-}
-public Cliente uploadIndirizzoSedeOperativa(Indirizzo indirizzo, Cliente cliente){
+    }
+
+    public Cliente uploadIndirizzoSedeOperativa(Indirizzo indirizzo, Cliente cliente) {
         Cliente found = this.findById(cliente.getId());
         found.setSedeOperativa(indirizzo);
         return clienteRepository.save(found);
-}
+    }
+
     public Cliente findByEmail(String email) {
         return clienteRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Cliente con email " + email + " non trovato!!"));
     }
 }
+
