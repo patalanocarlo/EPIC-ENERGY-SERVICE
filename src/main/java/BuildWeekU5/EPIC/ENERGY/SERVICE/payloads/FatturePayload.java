@@ -16,7 +16,6 @@ public record FatturePayload(
         double Importo,
 
         @NotNull(message = "Campo obbligatorio")
-        Long ruoloStatoFatturaId,
-        @NotNull(message = "Campo obbligatorio")
-        Long clienteId
+        Long ruoloStatoFatturaId
+
 ) {}

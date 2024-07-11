@@ -9,6 +9,7 @@ import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.RuoloStatoFatturaPayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,7 @@ public class RuoloStatoFatturaController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public RuoloStatoFattura createRuoloStatoFattura(@RequestBody @Validated RuoloStatoFatturaPayload ruoloStatoFatturaPayload, BindingResult validation) throws IOException {
         if (validation.hasErrors()) {
             throw new BadRequestException(validation.getAllErrors());

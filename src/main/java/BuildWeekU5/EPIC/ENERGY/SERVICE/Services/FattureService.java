@@ -22,7 +22,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
+<<<<<<< Updated upstream
 import java.time.LocalDate;
+=======
+import java.util.ArrayList;
+>>>>>>> Stashed changes
 import java.util.List;
 
 
@@ -36,8 +40,11 @@ public class FattureService {
     private ClienteService clienteService;
     @Autowired
     private ClienteRepository clienteRepository;
+    @Autowired
+    private UtenteService utenteService;
 
-    public Fatture save(FatturePayload body) throws IOException {
+    public Fatture save(FatturePayload body, Utente cliente) throws IOException {
+        Cliente found = clienteService.findById(cliente.getId());
         Fatture fatture = new Fatture();
         fatture.setDataFattura(body.DataFattura());
         fatture.setImporto(body.Importo());
@@ -45,10 +52,7 @@ public class FattureService {
                 .orElseThrow(() -> new IOException("Stato fattura non trovata con id: " + body.ruoloStatoFatturaId()));
         fatture.setRuoloStatoFattura(ruoloStatoFattura);
 
-
-        Cliente cliente = clienteRepository.findById(body.clienteId())
-                .orElseThrow(() -> new IOException("Cliente non trovato  Con id : " + body.clienteId()));
-        fatture.setCliente(cliente);
+        clienteService.uploadFatture(fatture, found );
         Fatture savedFatture = fattureRepository.save(fatture);
         updateFatturatoAnnuale(cliente.getId());
 
