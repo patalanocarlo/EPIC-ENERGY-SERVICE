@@ -42,26 +42,35 @@ private ClienteRepository clienteRepository;
 
     public Fatture save(FatturePayload body, Cliente cliente) throws IOException {
         Cliente found = clienteService.findById(cliente.getId());
+        if (found == null) {
+            throw new NotFoundException("Cliente non trovato con id: " + cliente.getId());
+        }
 
         Fatture fatture = new Fatture();
         fatture.setDataFattura(body.DataFattura());
         fatture.setImporto(body.Importo());
-        fatture.setCliente(found);
+
+
         RuoloStatoFattura ruoloStatoFattura = ruoloStatoFatturaService.findStatoFatturaById(body.idFattura());
+        if (ruoloStatoFattura == null) {
+            throw new NotFoundException("RuoloStatoFattura non trovato con id: " + body.idFattura());
+        }
         fatture.setRuoloStatoFattura(ruoloStatoFattura);
-      // clienteService.uploadFatture(fatture, found);
-//        List<Fatture> modificaFatture = cliente.getFattures();
-//        if (modificaFatture == null) {
-//           modificaFatture = new ArrayList<>();
-//       }
-//
-//        modificaFatture.add(fatture);
-//        found.setFattures(modificaFatture);
-//      double fatturatoAnnuale = modificaFatture.stream()
-//               .mapToDouble(Fatture::getImporto)
-//                .sum();
-//        found.setFatturatoAnnuale((int) fatturatoAnnuale);
-//       clienteRepository.save(found);
+
+        fatture.setCliente(found);
+        List<Fatture> modificaFatture = found.getFattures();
+        if (modificaFatture == null) {
+            modificaFatture = new ArrayList<>();
+        }
+        modificaFatture.add(fatture);
+        found.setFattures(modificaFatture);
+
+        double fatturatoAnnuale = modificaFatture.stream()
+                .mapToDouble(Fatture::getImporto)
+                .sum();
+        found.setFatturatoAnnuale((int) fatturatoAnnuale);
+
+        clienteRepository.save(found);
         return fattureRepository.save(fatture);
     }
     public Fatture findById(Long id) {
