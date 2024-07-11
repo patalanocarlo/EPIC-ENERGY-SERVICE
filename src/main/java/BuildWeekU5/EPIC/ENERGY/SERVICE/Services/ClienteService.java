@@ -88,7 +88,7 @@ public Cliente uploadIndirizzoSedeLegale(Indirizzo indirizzo, Cliente cliente){
 }
 public Cliente uploadIndirizzoSedeOperativa(Indirizzo indirizzo, Cliente cliente){
         Cliente found = this.findById(cliente.getId());
-        found.setSedeLegale(indirizzo);
+        found.setSedeOperativa(indirizzo);
         return clienteRepository.save(found);
 }
     public Cliente findByEmail(String email) {

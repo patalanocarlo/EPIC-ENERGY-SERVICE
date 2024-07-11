@@ -2,10 +2,12 @@ package BuildWeekU5.EPIC.ENERGY.SERVICE.controllers;
 
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Cliente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Indirizzo;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.ClienteService;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.IndirizzoService;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.IndirizzoPayload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,19 +25,25 @@ public class IndirizzoController {
     @Autowired
     IndirizzoService indirizzoService;
     @PostMapping("/sede-legale")
-    public Cliente createIndirizzoSedeLegale(
-                                             @AuthenticationPrincipal Cliente cliente) throws IOException {
+    @PreAuthorize("hasAuthority('CLIENTE')")
+    public Cliente createIndirizzoSedeLegale( @RequestBody IndirizzoPayload body,
+                                             @AuthenticationPrincipal Utente cliente) throws IOException {
 
-      //  Cliente clienteFound = clienteService.findById(cliente.getId());
-      //  Indirizzo indirizzo = indirizzoService.save(body);
-        return cliente;
-    }}
+        Cliente clienteFound = clienteService.findByEmail(cliente.getEmail());
 
-//    @PostMapping("/sede-operativa")
-//    public Cliente createIndirizzoSedeOperativa(@RequestBody IndirizzoPayload body,
-//                                                @AuthenticationPrincipal Cliente cliente) throws IOException {
-//        Cliente clienteFound = clienteService.findById(cliente.getId());
-//        Indirizzo indirizzo = indirizzoService.save(body);
-//        return clienteService.uploadIndirizzoSedeOperativa(indirizzo, cliente);
-//    }
-//}
+
+        Indirizzo indirizzo = indirizzoService.save(body);
+
+
+        return clienteService.uploadIndirizzoSedeLegale(indirizzo, clienteFound);
+    }
+
+   @PostMapping("/sede-operativa")
+   @PreAuthorize("hasAuthority('CLIENTE')")
+    public Cliente createIndirizzoSedeOperativa(@RequestBody IndirizzoPayload body,
+                                               @AuthenticationPrincipal Utente cliente) throws IOException {
+       Cliente clienteFound = clienteService.findByEmail(cliente.getEmail());
+       Indirizzo indirizzo = indirizzoService.save(body);
+       return clienteService.uploadIndirizzoSedeOperativa(indirizzo, clienteFound);
+    }
+}
