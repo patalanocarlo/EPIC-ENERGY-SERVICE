@@ -3,6 +3,7 @@ package BuildWeekU5.EPIC.ENERGY.SERVICE.Services;
 
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.*;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.ClienteRepository;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.BadRequestException;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.NotFoundException;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.ClientePayload;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.FatturePayload;
@@ -38,7 +39,12 @@ public class ClienteService {
 
 
     public Cliente save(ClientePayload body, Utente utente) throws IOException {
+        clienteRepository.findByEmail(utente.getEmail()).ifPresent(
 
+                user -> {
+                    throw new BadRequestException("L'email " + utente.getEmail() + " è già in uso!");
+                }
+        );
         Cliente cliente = new Cliente();
         cliente.setRagioneSociale(body.ragioneSociale());
         cliente.setPartitaIva(body.partitaIva());
