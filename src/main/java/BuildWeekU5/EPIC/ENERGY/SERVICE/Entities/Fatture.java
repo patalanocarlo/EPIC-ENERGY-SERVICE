@@ -26,11 +26,11 @@ public class Fatture {
     @ManyToOne
     private Cliente cliente;
 
-    public Fatture(Cliente cliente,double importo, RuoloStatoFattura ruoloStatoFattura, LocalDate dataFattura) {
+    public Fatture(Cliente cliente, double importo, RuoloStatoFattura ruoloStatoFattura, LocalDate dataFattura, int numeroFattura) {
         this.cliente = cliente;
-        Importo = importo;
+        this.Importo = importo;
         this.ruoloStatoFattura = ruoloStatoFattura;
-        DataFattura = dataFattura;
-        NumeroFattura++;
+        this.DataFattura = dataFattura;
+        this.NumeroFattura = numeroFattura;
     }
 }

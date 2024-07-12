@@ -56,6 +56,12 @@ private ClienteRepository clienteRepository;
         fatture.setRuoloStatoFattura(ruoloStatoFattura);
         fatture.setCliente(found);
 
+        int ultimoNumeroFattura = found.getFattures().stream()
+                .mapToInt(Fatture::getNumeroFattura)
+                .max()
+                .orElse(0);
+        fatture.setNumeroFattura(ultimoNumeroFattura + 1);
+
         fatture.setNumeroFattura(fatture.getNumeroFattura());
         List<Fatture> modificaFatture = found.getFattures();
         if (modificaFatture == null) {
