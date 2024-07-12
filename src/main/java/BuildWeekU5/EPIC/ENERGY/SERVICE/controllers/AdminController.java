@@ -1,9 +1,11 @@
 package BuildWeekU5.EPIC.ENERGY.SERVICE.controllers;
 
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.RuoloStatoFattura;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Entities.Utente_Ruolo;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.Utente_RuoloService;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.BadRequestException;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.AssegnaRuoloAdUtente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.RuoloStatoFatturaPayload;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.UtenteRuolo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +32,14 @@ public class AdminController {
         return utenteRuoloService.createRuoloUtenteDaEnpoint(utenteRuoloPayload);
     }
     // da testare
-    
+    @PatchMapping("/assegnaRuolo")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Utente assegnaRuolo(@RequestBody @Validated AssegnaRuoloAdUtente utenteRuoloPayload, BindingResult validation) throws IOException {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        }
+        return utenteRuoloService.assegnaRuoloUtente(utenteRuoloPayload);
+    }
+    // da testare
 }
