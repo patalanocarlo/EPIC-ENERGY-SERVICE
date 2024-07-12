@@ -15,8 +15,8 @@ public class Utente_RuoloService {
 
     @Autowired
     private Utente_RuoloRepository utenteRuoloRepository;
-    @Autowired
-    private UtenteService utenteService;
+//    @Autowired
+//    private UtenteService utenteService;
 
     public Utente_Ruolo CreaRuoloUtente(Utente_Ruolo utenteRuolo) {
 
@@ -27,12 +27,7 @@ public Utente_Ruolo createRuoloUtenteDaEnpoint(UtenteRuolo utenteRuolo){
         utente_ruolo.setRuolo(utenteRuolo.ruolo());
         return utenteRuoloRepository.save(utente_ruolo);
 }
-    public Utente assegnaRuoloUtente(AssegnaRuoloAdUtente assegnaRuoloAdUtente) {
-        Utente_Ruolo utenteRuolo = findById(assegnaRuoloAdUtente.Ruolo());
-Utente utente = utenteService.findById(assegnaRuoloAdUtente.Utente());
-        utente.setUtenteRuolo(utenteRuolo);
-       return utente;
-    }
+
     public Utente_Ruolo findById (Long id){
        return  utenteRuoloRepository.findById(id).orElseThrow(()-> new NotFoundException("Ruolo Utente non trovato"));
     }
