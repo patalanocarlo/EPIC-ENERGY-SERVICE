@@ -44,5 +44,5 @@ public class AdminController {
         }
         return utenteService.assegnaRuoloUtente(utenteRuoloPayload);
     }
-    // da testare
+
 }

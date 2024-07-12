@@ -52,6 +52,6 @@ public class UtenteController {
     public void deleteProfile(@PathVariable Long utenteId){
     this.utenteService.findByIdAndDelete(utenteId);
 }
-// da testare
+
 
 }

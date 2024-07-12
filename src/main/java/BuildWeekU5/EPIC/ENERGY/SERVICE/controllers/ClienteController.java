@@ -32,8 +32,9 @@ public class ClienteController {
     }
 
     @GetMapping("/me")
-    public Cliente getProfile(@AuthenticationPrincipal Cliente currentAuthenticatedUser) {
-        return currentAuthenticatedUser;
+    public Cliente getProfile(@AuthenticationPrincipal Utente currentAuthenticatedUser) {
+
+        return clienteService.findByEmail(currentAuthenticatedUser.getEmail());
     }
 
     @GetMapping("/{clienteId}")
