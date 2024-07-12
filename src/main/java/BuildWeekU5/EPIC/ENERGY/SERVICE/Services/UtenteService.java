@@ -62,7 +62,7 @@ public class UtenteService {
         Utente_Ruolo utenteRuolo = utenteRuoloService.findById(assegnaRuoloAdUtente.Ruolo());
         Utente utente = findById(assegnaRuoloAdUtente.Utente());
         utente.setUtenteRuolo(utenteRuolo);
-        return utente;
+        return utenteRepository.save(utente);
     }
     public Utente findById(Long id) {
         return utenteRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
