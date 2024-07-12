@@ -41,6 +41,7 @@ public class UtenteController {
         this.utenteService.findByIdAndDelete(currentAuthenticatedUser.getId());
 
     }
+    // siamo sicuri? In teoria non dovrebbe potersi cancellare
 
     @PostMapping("/me/avatar")
     public Utente uploadAvatar(@RequestParam("avatar") MultipartFile image, @AuthenticationPrincipal Utente utenteId) throws IOException {
@@ -53,4 +54,7 @@ public class UtenteController {
     this.utenteService.findByIdAndDelete(utenteId);
 }
 // da testare
+//    @PatchMapping("/{utenteId}")
+//    @PreAuthorize("hasAuthority('ADMIN')")
+//    public Utente modificatedUtente(){}
 }
