@@ -34,11 +34,8 @@ private ClienteService clienteService;
                                        @RequestParam(defaultValue = "id") String sortBy) {
         return this.fattureService.getAllFatture(page, size, sortBy);
     }
-
-
     @GetMapping("/me")
     public Fatture findById(@AuthenticationPrincipal Utente cliente, @RequestBody FattureResercePayload fatturaId) {
-
         return this.fattureService.findById(fatturaId.idFattura());
     }
 

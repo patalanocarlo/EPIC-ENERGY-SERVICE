@@ -34,7 +34,7 @@ public class AdminController {
         }
         return utenteRuoloService.createRuoloUtenteDaEnpoint(utenteRuoloPayload);
     }
-    // da testare
+
     @PostMapping("/assegnaRuolo")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAuthority('ADMIN')")
