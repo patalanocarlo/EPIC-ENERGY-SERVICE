@@ -123,6 +123,9 @@ public class ClienteService {
     public Cliente findByEmail(String email) {
         return clienteRepository.findByEmail(email).orElseThrow(() -> new NotFoundException("Cliente con email " + email + " non trovato!!"));
     }
+    public List<Cliente> findByProvinciaSedeLegale(String provincia) {
+        return clienteRepository.findBySedeLegale_Comune_Provincia(provincia);
+    }
 
 }
 

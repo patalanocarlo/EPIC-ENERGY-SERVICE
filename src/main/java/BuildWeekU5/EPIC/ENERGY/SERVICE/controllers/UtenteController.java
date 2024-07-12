@@ -6,6 +6,7 @@ import BuildWeekU5.EPIC.ENERGY.SERVICE.Services.UtenteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,5 +46,12 @@ public class UtenteController {
     public Utente uploadAvatar(@RequestParam("avatar") MultipartFile image, @AuthenticationPrincipal Utente utenteId) throws IOException {
         return this.utenteService.uploadAvatar(utenteId.getId(), image);
     }
+@DeleteMapping("/{utenteId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public void deleteProfile(@PathVariable Long utenteId){
+    this.utenteService.findByIdAndDelete(utenteId);
+}
+// da testare
 
 }

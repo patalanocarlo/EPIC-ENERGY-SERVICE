@@ -7,6 +7,7 @@ import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.UtenteRepository;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.Repository.Utente_RuoloRepository;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.BadRequestException;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.exceptions.NotFoundException;
+import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.AssegnaRuoloAdUtente;
 import BuildWeekU5.EPIC.ENERGY.SERVICE.payloads.UtentePayload;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -57,7 +58,12 @@ public class UtenteService {
        utente.setUtenteRuolo(utenteRuolo);
        return  utenteRepository.save(utente);
     }
-
+    public Utente assegnaRuoloUtente(AssegnaRuoloAdUtente assegnaRuoloAdUtente) {
+        Utente_Ruolo utenteRuolo = utenteRuoloService.findById(assegnaRuoloAdUtente.Ruolo());
+        Utente utente = findById(assegnaRuoloAdUtente.Utente());
+        utente.setUtenteRuolo(utenteRuolo);
+        return utente;
+    }
     public Utente findById(Long id) {
         return utenteRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
     }
