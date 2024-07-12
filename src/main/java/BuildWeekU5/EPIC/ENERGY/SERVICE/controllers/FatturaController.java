@@ -28,12 +28,13 @@ public class FatturaController {
     private FattureService fattureService;
 @Autowired
 private ClienteService clienteService;
-    @GetMapping
+    @GetMapping("/me")
     public Page<Fatture> getAllFatture(@RequestParam(defaultValue = "0") int page,
                                        @RequestParam(defaultValue = "5") int size,
-                                       @RequestParam(defaultValue = "id") String sortBy) {
+                                       @RequestParam(defaultValue = "id") String sortBy, @AuthenticationPrincipal Utente cliente) {
         return this.fattureService.getAllFatture(page, size, sortBy);
     }
+    //da testare
 
     @GetMapping("/me")
     public Fatture findById(@AuthenticationPrincipal Utente cliente, @RequestBody FattureResercePayload fatturaId) {
