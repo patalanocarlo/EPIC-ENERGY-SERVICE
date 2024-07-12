@@ -31,7 +31,10 @@ public class ClienteController {
         return clienteService.getAllByOrderByNomeContatto();
     }
 
-
+    @GetMapping("/me")
+    public Cliente getProfile(@AuthenticationPrincipal Cliente currentAuthenticatedUser) {
+        return currentAuthenticatedUser;
+    }
 
     @GetMapping("/{clienteId}")
     public Cliente findById(@PathVariable Long clienteId) {
