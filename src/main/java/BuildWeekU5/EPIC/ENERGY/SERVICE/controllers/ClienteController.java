@@ -44,6 +44,11 @@ public class ClienteController {
         return this.clienteService.uploadAvatar(clienteFound.getId(), image);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public String deleteCliente(@PathVariable Long id) {
+        clienteService.findByIdAndDelete(id);
+        return "Cliente eliminato con successo.";
+    }
 
     @GetMapping("/orderByNome")
     public List<Cliente> getAllByOrderByNome() {
