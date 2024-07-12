@@ -84,11 +84,10 @@ public class ClienteController {
     public List<Cliente> filterByNomeContatto(@RequestParam String nomeContatto) {
         return clienteService.filterByNomeContatto(nomeContatto);
     }
-//@GetMapping("/filterByNomeProvincia")
-//public List<Cliente> filterByNomeProvincia(@RequestParam String nomeProvincia){
-//
-//}
-    // manca solo questo come endpoint
+    @GetMapping("/provincia-sede-legale")
+    public List<Cliente> getClientiByProvinciaSedeLegale(@RequestParam String provincia) {
+        return clienteService.findByProvinciaSedeLegale(provincia);
+    }
     @PostMapping("/registration/cliente")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAuthority('CLIENTE')")
